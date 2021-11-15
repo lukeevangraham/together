@@ -2,9 +2,14 @@ import * as actionTypes from "./actionTypes";
 import server from "../../apis/server";
 
 export const signIn = (formValues) => async (dispatch) => {
-  const response = await server.post("/login", { ...formValues });
+  console.log("Signing in!")
+  try {
+    const response = await server.post("/login", { ...formValues });
+    dispatch({ type: actionTypes.SIGN_IN, payload: response.data });
+  } catch (error) {
+    console.log("Error: ", error)
+  }
 
-  dispatch({ type: actionTypes.SIGN_IN, payload: response.data });
 };
 
 export const getUser = () => async (dispatch) => {

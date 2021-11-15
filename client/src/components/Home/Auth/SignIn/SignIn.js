@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { signIn, signOut } from "../../../../store/actions/auth";
+import { signIn, signOut, getUser } from "../../../../store/actions/auth";
 
 const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
   let [email, setEmail] = useState("");
@@ -34,16 +33,8 @@ const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
     });
   };
 
-  let authRedirect = null;
-  if (emailAfterSignIn) {
-    console.log("REDIRECTING! ")
-    authRedirect = <Navigate to={"/pizza"} />
-    
-  }
-
   return (
     <div>
-      {authRedirect}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -66,10 +57,8 @@ const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
   );
 };
 
-const mapStateToProps = (state) => (
-  {
-    emailAfterSignIn: state.auth.email
-  }
-)
+const mapStateToProps = (state) => ({
+  emailAfterSignIn: state.auth.email,
+});
 
-export default connect(mapStateToProps, { signIn, signOut })(SignIn);
+export default connect(mapStateToProps, { signIn, signOut, getUser })(SignIn);

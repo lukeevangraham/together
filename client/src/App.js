@@ -8,7 +8,7 @@ import { getUser } from "./store/actions"
 const App = ({ user, getUser }) => {
   useEffect(() => {
     getUser();
-  }, [getUser]);
+  }, [getUser, user.email]);
 
   let routes = (
     <Routes>
