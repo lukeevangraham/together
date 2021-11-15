@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Login from "./Login/Login";
+import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
 
 const Auth = (props) => {
@@ -11,7 +11,7 @@ const Auth = (props) => {
         <SignUp />
       ) : (
         <>
-          <Login />
+          <SignIn />
           <button onClick={() => setSignupChosen(true)}>Signup</button>
         </>
       )}
