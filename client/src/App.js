@@ -5,6 +5,7 @@ import Home from "./components/Home/Home.js";
 import Member from "./components/Member/Member.js";
 import { getUser } from "./store/actions"
 import "@fontsource/nunito";
+import "@fontsource/nunito/800.css";
 
 const App = ({ user, getUser }) => {
   useEffect(() => {
