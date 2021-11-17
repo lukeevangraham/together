@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home.js";
 import Member from "./components/Member/Member.js";
 import { getUser } from "./store/actions"
-import "@fontsource/corben";
+import "@fontsource/nunito";
 
 const App = ({ user, getUser }) => {
   useEffect(() => {

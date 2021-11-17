@@ -9,7 +9,6 @@ export const signIn = (formValues) => async (dispatch) => {
   } catch (error) {
     console.log("Error: ", error)
   }
-
 };
 
 export const getUser = () => async (dispatch) => {
@@ -17,8 +16,11 @@ export const getUser = () => async (dispatch) => {
   dispatch({ type: actionTypes.GET_USER, payload: response.data });
 };
 
-export const signOut = () => {
-  return {
+export const signOut = () => async (dispatch) => {
+  const response = await server.get("/logout")
+  console.log("[action]: Signout clicked ", response)
+  dispatch({
     type: actionTypes.SIGN_OUT,
-  };
+    payload: response.data
+  })
 };

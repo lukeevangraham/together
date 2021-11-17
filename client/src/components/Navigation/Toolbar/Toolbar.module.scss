@@ -1,0 +1,24 @@
+@import "../../../assets/sass/variables";
+
+.toolbarOuter {
+    background-color: $color-primary;
+    color: $color-quaternary-light;
+    
+}
+
+.toolbarInner {
+    display: flex;
+    justify-content: space-between;
+    max-width: $grid-width;
+    margin: auto;
+    padding: 1.5rem 2rem;
+}
+
+.brand {
+    // text-transform: lowercase;
+    font-size: 1.8rem;
+}
+
+.signoutLink {
+    cursor: pointer;
+}

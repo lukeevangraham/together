@@ -36,5 +36,8 @@ body {
   @include respond(tab-port) {
     padding: 0;
   }
-  background-color: $color-quaternary;
+  // background-color: $color-quaternary;
+  background-image: linear-gradient(to bottom right, $color-quaternary-light, $color-quaternary-dark);
+  background-size: cover;
+  background-position: center;
 }

@@ -12,7 +12,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case actionTypes.SIGN_IN:
       return { ...state, email: action.payload.email };
     case actionTypes.SIGN_OUT:
-      return { ...state, email: null };
+      return { ...state, email: null, id: null, firstName: null, lastName: null };
     case actionTypes.SIGN_UP:
       return { ...state, email: action.payload };
     case actionTypes.GET_USER:
