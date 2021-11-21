@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { signIn, signOut, getUser } from "../../../../store/actions/auth";
 
+import classes from "./SignIn.module.scss";
+
 const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
@@ -34,23 +36,31 @@ const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          autoComplete="on"
-        />
+    <div className={classes.signIn}>
+      <form onSubmit={handleSubmit} className={classes.form}>
+        <div className={classes.form__group}>
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className={classes.form__input}
+          />
+          <label htmlFor="email" className={classes.form__label}>Email address</label>
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            autoComplete="on"
+            className={classes.form__input}
+          />
+          <label htmlFor="password" className={classes.form__label}>Password</label>
+        </div>
         <input type="submit" value="Submit" />
       </form>
     </div>
