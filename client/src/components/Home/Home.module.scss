@@ -1,8 +1,8 @@
 @import "../../assets/sass/variables";
 
 .main {
-    background-color: $color-primary;
-    color: $color-tertiary;
+    background-color: $color-tertiary;
+    color: $color-primary;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin: 2rem;

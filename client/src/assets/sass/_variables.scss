@@ -1,13 +1,25 @@
 // COLORS
 $color-primary: #32502e;
+$color-primary-dark: #243a21;
 $color-secondary: #406343;
+$color-secondary-dark: #2c462e;
+$color-secondary-light: #537556;
 $color-tertiary: #ece7b4;
 $color-quaternary: #f3efcc;
 $color-quaternary-light: #f5f3e0;
 $color-quaternary-dark: #f1e14d;
+$color-quinary: #ffe600;
 
 $color-black: rgb(17, 17, 17);
 
 $grid-width: 114rem;
 
 // FONT
+$default-font-size: 1.6rem;
+
+
+// MARGIN BOTTOMS
+
+.u-margin-bottom-medium {
+    margin-bottom: 4rem !important;
+}

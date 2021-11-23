@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { signIn, signOut, getUser } from "../../../../store/actions/auth";
+import Button from "../../../UI/Button/Button"
 
 import classes from "./SignIn.module.scss";
 
@@ -46,10 +47,11 @@ const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             className={classes.form__input}
+            required
           />
           <label htmlFor="email" className={classes.form__label}>Email address</label>
         </div>
-        <div>
+        <div className={classes.form__group}>
           <input
             type="password"
             name="password"
@@ -58,10 +60,16 @@ const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
             placeholder="Password"
             autoComplete="on"
             className={classes.form__input}
+            required
           />
           <label htmlFor="password" className={classes.form__label}>Password</label>
         </div>
-        <input type="submit" value="Submit" />
+        <div className={classes.form__group}>
+          <Button type="submit" color={"green"}>
+            <>Sign In
+            </>
+          </Button>
+        </div>
       </form>
     </div>
   );
