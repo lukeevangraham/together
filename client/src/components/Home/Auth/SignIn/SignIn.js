@@ -1,76 +1,88 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { signIn, signOut, getUser } from "../../../../store/actions/auth";
-import Button from "../../../UI/Button/Button"
+import Button from "../../../UI/Button/Button";
+import Input from "../../../UI/Input/Input"
 
 import classes from "./SignIn.module.scss";
 
 const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
+  let [signInForm, setSignInForm] = useState({
+    email: {
+      elementType: "input",
+      elementConfig: {
+        type: "email",
+        placeholder: "Email Address"
+      },
+      value: "",
+      validation: {
+        required: true,
+      },
+      valid: false,
+      touched: false
+    },
+    password: {
+      elementType: "input",
+      elementConfig: {
+        type: "password",
+        placeholder: "Password"
+      },
+      value: "",
+      validation: {
+        required: true,
+      },
+      valid: false,
+      touched: false
+    }
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // OLD NON-REDUX WAY
-    // console.log("Email: ", email);
-    // console.log("Pass: ", password);
-
-    // const requestOptions = {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //       email: email,
-    //       password: password,
-    //     }),
-    //   };
-    //   fetch("http://localhost:3000/api/login", requestOptions)
-    //     .then((response) => response.json())
-    //     // .then((data) => this.setState({ postId: data.id }));
-    //     .then((data) => console.log("Data: ", data))
-
     // REDUX WAY
     signIn({
-      email: email,
-      password: password,
+      email: signInForm.email.value,
+      password: signInForm.password.value,
     });
   };
 
+  const inputChangedHandler = (e, inputIdentifier) => {
+    const updatedSignInForm = {
+      ...signInForm,
+    }
+    const updatedFormElement = {
+      ...updatedSignInForm[inputIdentifier]
+    };
+    updatedFormElement.value = e.target.value;
+    updatedFormElement.touched = true;
+    updatedSignInForm[inputIdentifier] = updatedFormElement;
+    setSignInForm(updatedSignInForm);
+  }
+
+  const formElementsArray = [];
+  for (let key in signInForm) {
+    formElementsArray.push({
+      id: key,
+      config: signInForm[key]
+    })
+  }
+  let form = (
+    <form onSubmit={handleSubmit} className={classes.form}>
+      {formElementsArray.map((formElement) => (
+        <Input key={formElement.id} elementType={formElement.config.elementType} elementConfig={formElement.config.elementConfig} value={formElement.config.value} changed={(e) => inputChangedHandler(e, formElement.id)} required={formElement.config.validation.required} />
+      ))}
+      <div className={classes.form__group}>
+        <Button type="submit" color={"green"}>
+          <>Sign In
+          </>
+        </Button>
+      </div>
+    </form>
+  )
+
   return (
     <div className={classes.signIn}>
-      <form onSubmit={handleSubmit} className={classes.form}>
-        <div className={classes.form__group}>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            className={classes.form__input}
-            required
-          />
-          <label htmlFor="email" className={classes.form__label}>Email address</label>
-        </div>
-        <div className={classes.form__group}>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            autoComplete="on"
-            className={classes.form__input}
-            required
-          />
-          <label htmlFor="password" className={classes.form__label}>Password</label>
-        </div>
-        <div className={classes.form__group}>
-          <Button type="submit" color={"green"}>
-            <>Sign In
-            </>
-          </Button>
-        </div>
-      </form>
+      {form}
     </div>
   );
 };
