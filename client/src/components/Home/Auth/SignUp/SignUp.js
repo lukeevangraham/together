@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { signIn } from "../../../../store/actions/auth"
 import Input from "../../../UI/Input/Input";
 import Button from "../../../UI/Button/Button";
 
 import classes from "./SignUp.module.scss";
 
-const SignUp = () => {
+const SignUp = ({ signIn }) => {
   const [signUpForm, setSignUpForm] = useState({
     firstName: {
       elementType: "input",
@@ -63,11 +65,7 @@ const SignUp = () => {
     },
   })
 
-  let [firstName, setFirstName] = useState("");
-  let [lastName, setLastName] = useState("");
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-  let [passwordConfirm, setPasswordConfirm] = useState("");
+  const [error, setError] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,10 +83,21 @@ const SignUp = () => {
       };
       console.log("BODY: ", requestOptions.body)
       fetch("http://localhost:3000/api/signup", requestOptions)
-        .then((response) => response.json())
-        .then((data) => this.setState({ postId: data.id }));
+        .then((response) => {
+          console.log("RES: ", response)
+          return response.json()
+        })
+        .then((data) => {
+          console.log("DATA: ", data)
+          data.errors ? setError(data.errors[0].message) : (
+            signIn({
+              email: data.email,
+              password: signUpForm.password.value,
+            })
+          )
+        });
     } else {
-      alert("Passwords don't match");
+      setError("Passwords must match");
     }
   };
 
@@ -102,7 +111,15 @@ const SignUp = () => {
     updatedFormElement.value = e.target.value;
     updatedFormElement.touched = true;
     updatedSignUpForm[inputIdentifier] = updatedFormElement;
+    if (updatedSignUpForm.password.value !== updatedSignUpForm.passwordConfirm.value) {
+      setError("Passwords must match")
+    } else {
+      setError("")
+    }
     setSignUpForm(updatedSignUpForm);
+
+
+    // signUpForm.password.value === signUpForm.passwordConfirm.value ? null : setError("Passwords must match")
   }
 
   const formElementsArray = [];
@@ -118,10 +135,11 @@ const SignUp = () => {
       {formElementsArray.map((formElement) => (
         <Input key={formElement.id} elementType={formElement.config.elementType} elementConfig={formElement.config.elementConfig} value={formElement.config.value} changed={e => inputChangedHandler(e, formElement.id)} required={formElement.config.validation.required} />
       ))}
+      {error ? <div className={classes.error}>{error}</div> : null}
       <Button type="submit" color={"green"}>
-          <>Sign Up
-          </>
-        </Button>
+        <>Sign Up
+        </>
+      </Button>
     </form>
   )
 
@@ -179,4 +197,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default connect(null, { signIn })(SignUp);

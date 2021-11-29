@@ -19,5 +19,19 @@
             margin-bottom: 4rem;
         }
         padding-bottom: 4rem;
+
+        div:first-of-type {
+            margin-right: 4%;
+        }
+        div:nth-of-type(-n+2) {
+            width: 48%;
+            display: inline-block;
+        }
+    }
+
+    .error {
+        color: $color-quaternary-light;
+        padding-bottom: 2rem;
+        text-transform: uppercase;
     }
 }
