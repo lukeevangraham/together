@@ -23,21 +23,15 @@ const App = ({ user, getUser }) => {
   if (user.email) {
     routes = (
       <Layout>
-      <Routes>
-        <Route path="/profile" element={<Profile user={user} />} />
-        <Route path="/" element={<Member user={user} />} />
-      </Routes>
+        <Routes>
+          <Route path="/profile" element={<Profile user={user} />} />
+          <Route path="/" element={<Member user={user} />} />
+        </Routes>
       </Layout>
     );
   }
 
-  return (
-
-     
-        <BrowserRouter>{routes}</BrowserRouter>
-
-
-  );
+  return <BrowserRouter>{routes}</BrowserRouter>;
 };
 
 const mapStateToProps = (state) => ({
