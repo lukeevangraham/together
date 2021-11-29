@@ -31,13 +31,23 @@ html {
 
 body {
   box-sizing: border-box;
-//   padding: 3rem;
+  //   padding: 3rem;
+  max-width: 120rem;
+  margin: 5rem auto;
+  box-shadow: 0 0 1rem rgba($color-black, .5);
+  // padding: 2rem;
 
   @include respond(tab-port) {
-    padding: 0;
+      max-width: 100%;
+      margin: 0;
+
   }
   // background-color: $color-quaternary;
-  background-image: linear-gradient(to bottom right, $color-primary, $color-secondary-light);
+  background-image: linear-gradient(
+    to bottom right,
+    $color-primary,
+    $color-secondary-light
+  );
   background-size: cover;
   background-position: center;
 }

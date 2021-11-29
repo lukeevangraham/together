@@ -1,10 +1,12 @@
 import React from "react";
-import Toolbar from '../Navigation/Toolbar/Toolbar'
 
-const Member = ({user}) => (
+import classes from "./Member.module.scss";
+
+const Member = ({ user }) => (
   <div>
-    <Toolbar />
-    <div>Hello {user.firstName} </div>
+    <div className={classes.member}>
+      Hello {user.firstName}! What would you like to share?{" "}
+    </div>
   </div>
 );
 

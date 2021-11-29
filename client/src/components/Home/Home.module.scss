@@ -1,11 +1,11 @@
 @import "../../assets/sass/variables";
 
 .main {
-    background-color: $color-tertiary;
-    color: $color-primary;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    margin: 2rem;
-    padding: 2rem;
-    height: 80vh;
+  background-color: $color-tertiary;
+  color: $color-primary;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  // margin: 2rem;
+  padding: 2rem;
+  height: 80vh;
 }

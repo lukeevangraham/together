@@ -111,11 +111,11 @@ const SignUp = ({ signIn }) => {
     updatedFormElement.value = e.target.value;
     updatedFormElement.touched = true;
     updatedSignUpForm[inputIdentifier] = updatedFormElement;
-    if (updatedSignUpForm.password.value !== updatedSignUpForm.passwordConfirm.value) {
-      setError("Passwords must match")
-    } else {
-      setError("")
-    }
+    // if (updatedSignUpForm.password.value !== updatedSignUpForm.passwordConfirm.value) {
+    //   setError("Passwords must match")
+    // } else {
+    //   setError("")
+    // }
     setSignUpForm(updatedSignUpForm);
 
 
