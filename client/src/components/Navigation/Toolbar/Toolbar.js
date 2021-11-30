@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../../store/actions/auth";
 import NavigationItems from "./NavigationItems/NavigationItems";
+import { NavLink } from "react-router-dom";
 
 import classes from "./Toolbar.module.scss";
 
@@ -21,7 +22,12 @@ const Toolbar = ({ signOut, user }) => {
           <div onClick={handleSignOut} className={classes.signoutLink}>
             Signout
           </div>
-          <div>{user.firstName}</div>
+          {user.firstName ? (
+            <NavLink to={"profile"} exact className={classes.userButton}>
+              <div>{user.firstName[0]}</div>
+              <div>{user.firstName}</div>
+            </NavLink>
+          ) : null}
         </div>
       </div>
     </div>

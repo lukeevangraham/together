@@ -17,6 +17,7 @@ const App = ({ user, getUser }) => {
   let routes = (
     <Routes>
       <Route path="/" element={Home} />
+      <Route path="*" element={Home} />
     </Routes>
   );
 
