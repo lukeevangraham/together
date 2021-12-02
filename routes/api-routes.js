@@ -60,4 +60,25 @@ module.exports = function (app) {
       });
     }
   });
+
+  app.put("/api/user_data", function (req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      console.log("BODY: ", req.body)
+      db.User.update(
+        {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+        },
+        {
+          where: {
+            id: req.body.id,
+          },
+        }
+      ).then((dbUser) => res.json(dbUser));
+    }
+  });
 };

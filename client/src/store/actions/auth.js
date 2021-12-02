@@ -2,12 +2,12 @@ import * as actionTypes from "./actionTypes";
 import server from "../../apis/server";
 
 export const signIn = (formValues) => async (dispatch) => {
-  console.log("Signing in!")
+  console.log("Signing in!");
   try {
     const response = await server.post("/login", { ...formValues });
     dispatch({ type: actionTypes.SIGN_IN, payload: response.data });
   } catch (error) {
-    console.log("Error: ", error)
+    console.log("Error: ", error);
   }
 };
 
@@ -17,10 +17,19 @@ export const getUser = () => async (dispatch) => {
 };
 
 export const signOut = () => async (dispatch) => {
-  const response = await server.get("/logout")
-  console.log("[action]: Signout clicked ", response)
+  const response = await server.get("/logout");
+  console.log("[action]: Signout clicked ", response);
   dispatch({
     type: actionTypes.SIGN_OUT,
-    payload: response.data
-  })
+    payload: response.data,
+  });
+};
+
+export const updateUser = (formValues) => async (dispatch) => {
+  try {
+    const response = await server.put("/user_data", { ...formValues });
+    dispatch({ type: actionTypes.UPDATE_USER, payload: response.data });
+  } catch (error) {
+    console.log("ERROR: ", error);
+  }
 };

@@ -1,0 +1,13 @@
+.settings {
+  &__form {
+    // background-color: orangered;
+    padding: 3rem;
+    div:first-of-type {
+      margin-right: 4%;
+    }
+    div:nth-of-type(-n + 2) {
+      width: 48%;
+      display: inline-block;
+    }
+  }
+}
