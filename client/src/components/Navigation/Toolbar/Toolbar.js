@@ -23,7 +23,7 @@ const Toolbar = ({ signOut, user }) => {
             Signout
           </div>
           {user.firstName ? (
-            <NavLink to={"profile"} exact className={classes.userButton}>
+            <NavLink to={"profile"} exact="true" className={classes.userButton}>
               <div>{user.firstName[0]}</div>
               <div>{user.firstName}</div>
             </NavLink>

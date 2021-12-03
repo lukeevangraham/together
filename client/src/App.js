@@ -9,10 +9,10 @@ import { getUser } from "./store/actions";
 import "@fontsource/nunito";
 import "@fontsource/nunito/800.css";
 
-const App = ({ user, getUser }) => {
+const App = ({ userEmail, userId, userFirstName, userLastName, getUser }) => {
   useEffect(() => {
     getUser();
-  }, [getUser, user.email]);
+  }, [getUser, userEmail]);
 
   let routes = (
     <Routes>
@@ -21,12 +21,26 @@ const App = ({ user, getUser }) => {
     </Routes>
   );
 
-  if (user.email) {
+  if (userEmail) {
     routes = (
       <Layout>
         <Routes>
-          <Route path="/profile" element={<Profile user={user} />} />
-          <Route path="/" element={<Member user={user} />} />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <Member
+                user={{ userEmail, userId, userFirstName, userLastName }}
+              />
+            }
+          />
         </Routes>
       </Layout>
     );
@@ -36,7 +50,10 @@ const App = ({ user, getUser }) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.auth,
+  userEmail: state.auth.email,
+  userId: state.auth.id,
+  userFirstName: state.auth.firstName,
+  userLastName: state.auth.lastName,
 });
 
 export default connect(mapStateToProps, { getUser })(App);

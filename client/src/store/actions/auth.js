@@ -12,6 +12,7 @@ export const signIn = (formValues) => async (dispatch) => {
 };
 
 export const getUser = () => async (dispatch) => {
+  console.log("getting user!")
   const response = await server.get("user_data");
   dispatch({ type: actionTypes.GET_USER, payload: response.data });
 };

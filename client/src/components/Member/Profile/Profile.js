@@ -1,12 +1,43 @@
-import React, { useState } from "react";
-import { connect } from "react-redux"
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import { updateUser } from "../../../store/actions/";
 
 import classes from "./Profile.module.scss";
 
-const Profile = ({ user, updateUser }) => {
+const Profile = ({
+  userId,
+  userEmail,
+  userFirstName,
+  userLastName,
+  updateUser,
+}) => {
+
+  // IF A USER LOGS IN AND GOES DIRECTLY TO THE PROFILE PAGE, WE NEED THIS FORM WITH USESTATE TO RE-RENDER
+  // THE USE EFFECT WILL CALL setProfileForm TO UPDATE THE FORM
+  // the form listens to the useState, not props
+
+  useEffect(() => {
+    if (userFirstName && userLastName) {
+      const newProfileForm = { ...profileForm };
+
+      const newFirstName = {
+        ...newProfileForm.firstName,
+      };
+      newFirstName.value = userFirstName;
+      newProfileForm.firstName = newFirstName;
+
+      const newLastName = {
+        ...newProfileForm.lastName,
+      };
+      newLastName.value = userLastName;
+      newProfileForm.lastName = newLastName;
+
+      setProfileForm(newProfileForm);
+    }
+  }, [userFirstName, userLastName]);
+
   const [profileForm, setProfileForm] = useState({
     firstName: {
       elementType: "input",
@@ -14,7 +45,7 @@ const Profile = ({ user, updateUser }) => {
         type: "text",
         placeholder: "First Name",
       },
-      value: user.firstName,
+      value: "",
       validation: {
         required: true,
       },
@@ -25,7 +56,7 @@ const Profile = ({ user, updateUser }) => {
         type: "text",
         placeholder: "Last Name",
       },
-      value: user.lastName,
+      value: "",
       validation: {
         required: true,
       },
@@ -36,7 +67,7 @@ const Profile = ({ user, updateUser }) => {
         type: "email",
         placeholder: "Email Address",
       },
-      value: user.email,
+      value: userEmail,
       validation: {
         required: true,
       },
@@ -83,24 +114,24 @@ const Profile = ({ user, updateUser }) => {
   for (let key in profileForm) {
     profileFormElementsArray.push({
       id: key,
-      config: profileForm[key]
-    })
+      config: profileForm[key],
+    });
   }
 
   const passwordChangeFormElementsArray = [];
   for (let key in passwordChangeForm) {
     passwordChangeFormElementsArray.push({
       id: key,
-      config: passwordChangeForm[key]
-    })
+      config: passwordChangeForm[key],
+    });
   }
 
   const profileInputChangedHandler = (e, inputIdentifier) => {
     const updatedProfileForm = {
       ...profileForm,
-    }
+    };
     const updatedFormElement = {
-      ...updatedProfileForm[inputIdentifier]
+      ...updatedProfileForm[inputIdentifier],
     };
     updatedFormElement.value = e.target.value;
     updatedFormElement.touched = true;
@@ -112,42 +143,55 @@ const Profile = ({ user, updateUser }) => {
     // }
     setProfileForm(updatedProfileForm);
 
-
     // signUpForm.password.value === signUpForm.passwordConfirm.value ? null : setError("Passwords must match")
-  }
+  };
 
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   const handleProfileSubmit = (e) => {
-      e.preventDefault();
-      console.log("FORM: ", e)
-      updateUser({
-          firstName: profileForm.firstName.value,
-          lastName: profileForm.lastName.value,
-          email: profileForm.email.value,
-          id: user.id
-      })
-  }
+    e.preventDefault();
+    console.log("FORM: ", e);
+    updateUser({
+      firstName: profileForm.firstName.value,
+      lastName: profileForm.lastName.value,
+      email: profileForm.email.value,
+      id: userId,
+    });
+  };
 
-  const renderProfileForm = (
+  let renderProfileForm = (
     <form onSubmit={handleProfileSubmit} className={classes.settings__form}>
       {profileFormElementsArray.map((formElement) => (
-        <Input key={formElement.id} elementType={formElement.config.elementType} elementConfig={formElement.config.elementConfig} value={formElement.config.value} changed={e => profileInputChangedHandler(e, formElement.id)} required={formElement.config.validation.required} />
+        <Input
+          key={formElement.id}
+          elementType={formElement.config.elementType}
+          elementConfig={formElement.config.elementConfig}
+          value={formElement.config.value}
+          changed={(e) => profileInputChangedHandler(e, formElement.id)}
+          required={formElement.config.validation.required}
+        />
       ))}
       {error ? <div className={classes.error}>{error}</div> : null}
       <Button type="submit" color={"green"}>
-        <>Update Profile
-        </>
+        <>Update Profile</>
       </Button>
     </form>
-  )
+  );
 
   return (
     <div className={classes.settings}>
       <h2>Your Profile Settings</h2>
       {renderProfileForm}
+      <div>First Name: {userFirstName}</div>
     </div>
   );
 };
 
-export default connect(null, { updateUser })(Profile);
+const mapStateToProps = (state) => ({
+  userEmail: state.auth.email,
+  userId: state.auth.id,
+  userFirstName: state.auth.firstName,
+  userLastName: state.auth.lastName,
+});
+
+export default connect(mapStateToProps, { updateUser })(Profile);
