@@ -12,32 +12,9 @@ const Profile = ({
   userFirstName,
   userLastName,
   updateUser,
+  formError,
+  user,
 }) => {
-
-  // IF A USER LOGS IN AND GOES DIRECTLY TO THE PROFILE PAGE, WE NEED THIS FORM WITH USESTATE TO RE-RENDER
-  // THE USE EFFECT WILL CALL setProfileForm TO UPDATE THE FORM
-  // the form listens to the useState, not props
-
-  useEffect(() => {
-    if (userFirstName && userLastName) {
-      const newProfileForm = { ...profileForm };
-
-      const newFirstName = {
-        ...newProfileForm.firstName,
-      };
-      newFirstName.value = userFirstName;
-      newProfileForm.firstName = newFirstName;
-
-      const newLastName = {
-        ...newProfileForm.lastName,
-      };
-      newLastName.value = userLastName;
-      newProfileForm.lastName = newLastName;
-
-      setProfileForm(newProfileForm);
-    }
-  }, [userFirstName, userLastName]);
-
   const [profileForm, setProfileForm] = useState({
     firstName: {
       elementType: "input",
@@ -73,6 +50,42 @@ const Profile = ({
       },
     },
   });
+
+  // IF A USER LOGS IN AND GOES DIRECTLY TO THE PROFILE PAGE, WE NEED THIS FORM WITH USESTATE TO RE-RENDER
+  // THE USE EFFECT WILL CALL setProfileForm TO UPDATE THE FORM
+  // the form listens to the useState, not props
+
+  useEffect(() => {
+    if (userFirstName && userLastName) {
+      const newProfileForm = { ...profileForm };
+
+      const newFirstName = {
+        ...newProfileForm.firstName,
+      };
+      newFirstName.value = userFirstName;
+      newProfileForm.firstName = newFirstName;
+
+      const newLastName = {
+        ...newProfileForm.lastName,
+      };
+      newLastName.value = userLastName;
+      newProfileForm.lastName = newLastName;
+
+      setProfileForm(newProfileForm);
+    }
+
+    if (formError) {
+      formError.forEach((error) => {
+        const updatedProfileForm = { ...profileForm };
+        const newFormElement = {
+          ...updatedProfileForm[error.path],
+        };
+        newFormElement.value = user[error.path];
+        updatedProfileForm[error.path] = newFormElement;
+        setProfileForm(updatedProfileForm);
+      });
+    }
+  }, [userFirstName, userLastName, formError, user]);
 
   const [passwordChangeForm, setPasswordChangeForm] = useState({
     currentPassword: {
@@ -150,7 +163,6 @@ const Profile = ({
 
   const handleProfileSubmit = (e) => {
     e.preventDefault();
-    console.log("FORM: ", e);
     updateUser({
       firstName: profileForm.firstName.value,
       lastName: profileForm.lastName.value,
@@ -172,6 +184,9 @@ const Profile = ({
         />
       ))}
       {error ? <div className={classes.error}>{error}</div> : null}
+      {formError ? (
+        <div className={classes.error}>{formError[0].message}</div>
+      ) : null}
       <Button type="submit" color={"green"}>
         <>Update Profile</>
       </Button>
@@ -182,7 +197,6 @@ const Profile = ({
     <div className={classes.settings}>
       <h2>Your Profile Settings</h2>
       {renderProfileForm}
-      <div>First Name: {userFirstName}</div>
     </div>
   );
 };
@@ -192,6 +206,8 @@ const mapStateToProps = (state) => ({
   userId: state.auth.id,
   userFirstName: state.auth.firstName,
   userLastName: state.auth.lastName,
+  formError: state.auth.error,
+  user: state.auth,
 });
 
 export default connect(mapStateToProps, { updateUser })(Profile);

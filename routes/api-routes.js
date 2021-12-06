@@ -61,24 +61,29 @@ module.exports = function (app) {
     }
   });
 
-  app.put("/api/user_data", function (req, res) {
+  app.put("/api/user_data", async (req, res) => {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
-      console.log("BODY: ", req.body)
-      db.User.update(
-        {
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          email: req.body.email,
-        },
-        {
-          where: {
-            id: req.body.id,
+      try {
+        const dbUser = await db.User.update(
+          {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
           },
-        }
-      ).then((dbUser) => res.json(dbUser));
+          {
+            where: {
+              id: req.body.id,
+            },
+          }
+        );
+        res.json(dbUser);
+      } catch (error) {
+        console.log("E: ", error.errors);
+        res.json(error)
+      }
     }
   });
 };

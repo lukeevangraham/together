@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../../store/actions/auth";
 import NavigationItems from "./NavigationItems/NavigationItems";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import classes from "./Toolbar.module.scss";
 
@@ -17,8 +17,12 @@ const Toolbar = ({ signOut, user }) => {
     <div className={classes.toolbarOuter}>
       <div className="gridWidth">
         <div className={classes.toolbarInner}>
-          <div className={classes.brand}>Together</div>
-          <NavigationItems />
+          <div className={classes.brand}>
+            <Link to="/" exact="true">
+              Together
+            </Link>
+          </div>
+          {/* <NavigationItems /> */}
           <div onClick={handleSignOut} className={classes.signoutLink}>
             Signout
           </div>
