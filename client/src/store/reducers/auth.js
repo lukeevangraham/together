@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actionTypes.SIGN_IN:
-      return { ...state, email: action.payload.email };
+      return { ...state, id: action.payload.id };
     case actionTypes.SIGN_OUT:
       return {
         ...state,
@@ -23,14 +23,24 @@ const reducer = (state = INITIAL_STATE, action) => {
     case actionTypes.SIGN_UP:
       return { ...state, email: action.payload };
     case actionTypes.GET_USER:
+      console.log("GET USER LOAD", action.payload);
       return {
         ...state,
         id: action.payload.id,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
+        email: action.payload.email,
       };
     case actionTypes.UPDATE_USER:
       console.log("REDUCER LOAD: ", action.payload);
+      if (action.payload.data.length > 0) {
+        return {
+          ...state,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+          email: action.payload.email,
+        };
+      }
       if (action.payload.errors) {
         return {
           ...state,
@@ -39,7 +49,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       } else
         return {
           ...state,
-          error: null
+          error: null,
         };
     default:
       return state;

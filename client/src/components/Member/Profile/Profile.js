@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
+import PasswordChange from "./PasswordChange/PasswordChange";
 import { updateUser } from "../../../store/actions/";
 
 import classes from "./Profile.module.scss";
@@ -71,6 +72,12 @@ const Profile = ({
       newLastName.value = userLastName;
       newProfileForm.lastName = newLastName;
 
+      // const newEmail = {
+      //   ...newProfileForm.email,
+      // };
+      // newEmail.value = user.email;
+      // newProfileForm.email = newEmail
+
       setProfileForm(newProfileForm);
     }
 
@@ -131,14 +138,6 @@ const Profile = ({
     });
   }
 
-  const passwordChangeFormElementsArray = [];
-  for (let key in passwordChangeForm) {
-    passwordChangeFormElementsArray.push({
-      id: key,
-      config: passwordChangeForm[key],
-    });
-  }
-
   const profileInputChangedHandler = (e, inputIdentifier) => {
     const updatedProfileForm = {
       ...profileForm,
@@ -149,14 +148,8 @@ const Profile = ({
     updatedFormElement.value = e.target.value;
     updatedFormElement.touched = true;
     updatedProfileForm[inputIdentifier] = updatedFormElement;
-    // if (updatedSignUpForm.password.value !== updatedSignUpForm.passwordConfirm.value) {
-    //   setError("Passwords must match")
-    // } else {
-    //   setError("")
-    // }
-    setProfileForm(updatedProfileForm);
 
-    // signUpForm.password.value === signUpForm.passwordConfirm.value ? null : setError("Passwords must match")
+    setProfileForm(updatedProfileForm);
   };
 
   const [error, setError] = useState("");
@@ -197,6 +190,7 @@ const Profile = ({
     <div className={classes.settings}>
       <h2>Your Profile Settings</h2>
       {renderProfileForm}
+      <PasswordChange classes={classes} />
     </div>
   );
 };

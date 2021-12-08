@@ -2,7 +2,15 @@
 
 .settings {
   &__form {
-    // background-color: orangered;
+    &__password {
+      div:first-of-type {
+        margin-right: 0 !important;
+      }
+      div:nth-of-type(-n + 2) {
+        width: 100% !important;
+        display: block !important;
+      }
+    }
     padding: 3rem;
     div:first-of-type {
       margin-right: 4%;
@@ -25,3 +33,4 @@
     }
   }
 }
+

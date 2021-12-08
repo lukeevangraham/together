@@ -12,7 +12,8 @@ module.exports = function (app) {
     // They won't get this or even be able to access this page if they aren't authed
     // res.json("/members");
     const userInfo = {
-      email: req.user.email,
+      // email: req.user.email,
+      id: req.user.id
     };
     res.send(userInfo);
   });
@@ -79,10 +80,11 @@ module.exports = function (app) {
             },
           }
         );
+
         res.json(dbUser);
       } catch (error) {
         console.log("E: ", error.errors);
-        res.json(error)
+        res.json(error);
       }
     }
   });

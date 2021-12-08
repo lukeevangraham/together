@@ -12,7 +12,7 @@ export const signIn = (formValues) => async (dispatch) => {
 };
 
 export const getUser = () => async (dispatch) => {
-  console.log("getting user!")
+  console.log("getting user!");
   const response = await server.get("user_data");
   dispatch({ type: actionTypes.GET_USER, payload: response.data });
 };
@@ -29,7 +29,22 @@ export const signOut = () => async (dispatch) => {
 export const updateUser = (formValues) => async (dispatch) => {
   try {
     const response = await server.put("/user_data", { ...formValues });
-    dispatch({ type: actionTypes.UPDATE_USER, payload: response.data });
+    dispatch({
+      type: actionTypes.UPDATE_USER,
+      payload: {
+        data: response.data,
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        email: formValues.email,
+      },
+    });
+    // if (response.data.length > 0) {
+    //   console.log("special getUser");
+    //   const getResponse = await server.get("user_data");
+    //   dispatch({ type: actionTypes.GET_USER, payload: getResponse.data });
+    //   getUser();
+    // }
+    signIn()
   } catch (error) {
     console.log("ERROR: ", error);
   }

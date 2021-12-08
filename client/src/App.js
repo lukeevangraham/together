@@ -12,7 +12,7 @@ import "@fontsource/nunito/800.css";
 const App = ({ userEmail, userId, userFirstName, userLastName, getUser }) => {
   useEffect(() => {
     getUser();
-  }, [getUser, userEmail]);
+  }, [getUser, userId]);
 
   let routes = (
     <Routes>
