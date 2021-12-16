@@ -1,3 +1,4 @@
+import { changePassword } from "../actions";
 import * as actionTypes from "../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -6,6 +7,7 @@ const INITIAL_STATE = {
   firstName: null,
   lastName: null,
   error: null,
+  passChangeError: null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -53,6 +55,11 @@ const reducer = (state = INITIAL_STATE, action) => {
         };
     case actionTypes.AUTH_FAIL:
       return { ...state, error: action.error };
+    case actionTypes.CHANGE_PASSWORD_FAIL:
+      return { ...state, passChangeError: action.error };
+    case actionTypes.CHANGE_PASSWORD_SUCCESS:
+      console.log("SUCCESS!!")
+      return { ...state, passChangeError: null };
     default:
       return state;
   }

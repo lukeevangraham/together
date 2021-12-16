@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Input from "../../../UI/Input/Input";
 import Button from "../../../UI/Button/Button";
+import Error from "../../../UI/Error/Error";
 import { changePassword } from "../../../../store/actions/";
 
-const PasswordChange = ({ classes, userId, changePassword, userEmail }) => {
+const PasswordChange = ({
+  classes,
+  userId,
+  changePassword,
+  userEmail,
+  passChangeError,
+}) => {
+  const [errorMessage, setErrorMessage] = useState("");
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: {
       elementType: "input",
@@ -41,6 +49,10 @@ const PasswordChange = ({ classes, userId, changePassword, userEmail }) => {
     },
   });
 
+  useEffect(() => {
+    passChangeError ? setErrorMessage(passChangeError.message) : setErrorMessage("");
+  }, [passChangeError])
+
   const inputChangedHandler = (e, inputIdentifier) => {
     const updatedForm = {
       ...passwordForm,
@@ -64,14 +76,17 @@ const PasswordChange = ({ classes, userId, changePassword, userEmail }) => {
     //   id: userId,
     // });
     console.log("Submit clicked!");
-    passwordForm.newPassword.value === passwordForm.confirmPassword.value ? (
+    if (passwordForm.newPassword.value === passwordForm.confirmPassword.value) {
       changePassword({
         email: userEmail,
         password: passwordForm.currentPassword.value,
         userId: userId,
-        newPassword: passwordForm.newPassword.value
-      })
-      ) : alert("passwords don't match")
+        newPassword: passwordForm.newPassword.value,
+      });
+      setErrorMessage("")
+    } else {
+      setErrorMessage("The new passwords don't match");
+    }
   };
 
   const passwordChangeFormElementsArray = [];
@@ -97,6 +112,7 @@ const PasswordChange = ({ classes, userId, changePassword, userEmail }) => {
           required={formElement.config.validation.required}
         />
       ))}
+      {errorMessage ? <Error message={errorMessage} /> : null}
       <Button type="submit" color={"green"}>
         Save Password
       </Button>
@@ -111,4 +127,8 @@ const PasswordChange = ({ classes, userId, changePassword, userEmail }) => {
   );
 };
 
-export default connect(null, { changePassword })(PasswordChange);
+const mapStateToProps = (state) => ({
+  passChangeError: state.auth.passChangeError,
+});
+
+export default connect(mapStateToProps, { changePassword })(PasswordChange);

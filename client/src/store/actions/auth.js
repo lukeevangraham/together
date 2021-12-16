@@ -60,7 +60,14 @@ export const changePassword = (formValues) => async (dispatch) => {
   try {
     const response = await server.put("/change_password", { ...formValues });
     console.log("RES: ", response);
+    dispatch({ type: actionTypes.CHANGE_PASSWORD_SUCCESS })
   } catch (error) {
     console.log("ERROR: ", error);
+    error.message === "Request failed with status code 401"
+      ? dispatch({
+          type: actionTypes.CHANGE_PASSWORD_FAIL,
+          error: { ...error, message: "Invalid current password" },
+        })
+      : dispatch({ type: actionTypes.AUTH_FAIL, error: error });
   }
 };
