@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -13,7 +14,7 @@ module.exports = function (app) {
     // res.json("/members");
     const userInfo = {
       // email: req.user.email,
-      id: req.user.id
+      id: req.user.id,
     };
     res.send(userInfo);
   });
@@ -88,4 +89,22 @@ module.exports = function (app) {
       }
     }
   });
+
+  app.put(
+    "/api/change_password",
+    passport.authenticate("local"),
+    (req, res) => {
+      console.log("BODY: ", req.body);
+      db.User.update(
+        {
+          password: bcrypt.hashSync(
+            req.body.newPassword,
+            bcrypt.genSaltSync(10),
+            null
+          ),
+        },
+        { where: { id: req.body.userId } }
+      );
+    }
+  );
 };

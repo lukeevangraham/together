@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import Input from "../../../UI/Input/Input";
 import Button from "../../../UI/Button/Button";
+import { changePassword } from "../../../../store/actions/";
 
-const PasswordChange = ({ classes }) => {
+const PasswordChange = ({ classes, userId, changePassword, userEmail }) => {
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: {
       elementType: "input",
@@ -62,6 +64,14 @@ const PasswordChange = ({ classes }) => {
     //   id: userId,
     // });
     console.log("Submit clicked!");
+    passwordForm.newPassword.value === passwordForm.confirmPassword.value ? (
+      changePassword({
+        email: userEmail,
+        password: passwordForm.currentPassword.value,
+        userId: userId,
+        newPassword: passwordForm.newPassword.value
+      })
+      ) : alert("passwords don't match")
   };
 
   const passwordChangeFormElementsArray = [];
@@ -73,7 +83,10 @@ const PasswordChange = ({ classes }) => {
   }
 
   let renderPasswordChangeForm = (
-    <form onSubmit={handlePasswordChangeSubmit} className={`${classes.settings__form} ${classes.settings__form__password}`}>
+    <form
+      onSubmit={handlePasswordChangeSubmit}
+      className={`${classes.settings__form} ${classes.settings__form__password}`}
+    >
       {passwordChangeFormElementsArray.map((formElement) => (
         <Input
           key={formElement.id}
@@ -85,7 +98,7 @@ const PasswordChange = ({ classes }) => {
         />
       ))}
       <Button type="submit" color={"green"}>
-          Save Password
+        Save Password
       </Button>
     </form>
   );
@@ -98,4 +111,4 @@ const PasswordChange = ({ classes }) => {
   );
 };
 
-export default PasswordChange;
+export default connect(null, { changePassword })(PasswordChange);

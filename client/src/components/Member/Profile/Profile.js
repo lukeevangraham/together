@@ -94,42 +94,6 @@ const Profile = ({
     }
   }, [userFirstName, userLastName, formError, user]);
 
-  const [passwordChangeForm, setPasswordChangeForm] = useState({
-    currentPassword: {
-      elementType: "input",
-      elementConfig: {
-        type: "password",
-        placeholder: "Password",
-      },
-      value: "",
-      validation: {
-        required: true,
-      },
-    },
-    newPassword: {
-      elementType: "input",
-      elementConfig: {
-        type: "password",
-        placeholder: "New password",
-      },
-      value: "",
-      validation: {
-        required: true,
-      },
-    },
-    newPasswordConfirm: {
-      elementType: "input",
-      elementConfig: {
-        type: "password",
-        placeholder: "Confirm new password",
-      },
-      value: "",
-      validation: {
-        required: true,
-      },
-    },
-  });
-
   const profileFormElementsArray = [];
   for (let key in profileForm) {
     profileFormElementsArray.push({
@@ -190,7 +154,7 @@ const Profile = ({
     <div className={classes.settings}>
       <h2>Your Profile Settings</h2>
       {renderProfileForm}
-      <PasswordChange classes={classes} />
+      <PasswordChange classes={classes} userId={user.id} userEmail={user.email} />
     </div>
   );
 };

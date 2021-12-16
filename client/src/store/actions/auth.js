@@ -44,7 +44,16 @@ export const updateUser = (formValues) => async (dispatch) => {
     //   dispatch({ type: actionTypes.GET_USER, payload: getResponse.data });
     //   getUser();
     // }
-    signIn()
+    signIn();
+  } catch (error) {
+    console.log("ERROR: ", error);
+  }
+};
+
+export const changePassword = (formValues) => async (dispatch) => {
+  try {
+    const response = await server.put("/change_password", { ...formValues });
+    console.log("RES: ", response);
   } catch (error) {
     console.log("ERROR: ", error);
   }
