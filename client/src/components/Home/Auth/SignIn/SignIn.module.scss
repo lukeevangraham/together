@@ -18,5 +18,13 @@
         &__group:last-child {
             margin-bottom: 4rem;
         }
+
+        .error {
+            margin-bottom: 2rem;
+            color: $color-red;
+            background-color: lighten($color-red, 30%);
+            padding: 1rem 2rem;
+            border-radius: .5rem;
+        }
     }
 }

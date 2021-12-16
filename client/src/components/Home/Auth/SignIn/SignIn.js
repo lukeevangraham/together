@@ -6,7 +6,7 @@ import Input from "../../../UI/Input/Input"
 
 import classes from "./SignIn.module.scss";
 
-const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
+const SignIn = ({ emailAfterSignIn, signIn, signOut, error }) => {
   let [signInForm, setSignInForm] = useState({
     email: {
       elementType: "input",
@@ -71,6 +71,7 @@ const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
       {formElementsArray.map((formElement) => (
         <Input key={formElement.id} elementType={formElement.config.elementType} elementConfig={formElement.config.elementConfig} value={formElement.config.value} changed={(e) => inputChangedHandler(e, formElement.id)} required={formElement.config.validation.required} />
       ))}
+          {error ? <div className={classes.error}>{error.message}</div> : null }
       <div className={classes.form__group}>
         <Button type="submit" color={"green"}>
           <>Sign In
@@ -89,6 +90,7 @@ const SignIn = ({ emailAfterSignIn, signIn, signOut }) => {
 
 const mapStateToProps = (state) => ({
   emailAfterSignIn: state.auth.email,
+  error: state.auth.error
 });
 
 export default connect(mapStateToProps, { signIn, signOut, getUser })(SignIn);

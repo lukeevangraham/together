@@ -7,7 +7,13 @@ export const signIn = (formValues) => async (dispatch) => {
     const response = await server.post("/login", { ...formValues });
     dispatch({ type: actionTypes.SIGN_IN, payload: response.data });
   } catch (error) {
-    console.log("Error: ", error);
+    console.log("Error: ", error.message);
+    error.message === "Request failed with status code 401"
+      ? dispatch({
+          type: actionTypes.AUTH_FAIL,
+          error: { ...error, message: "Invalid email address or password" },
+        })
+      : dispatch({ type: actionTypes.AUTH_FAIL, error: error });
   }
 };
 

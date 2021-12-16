@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actionTypes.SIGN_IN:
-      return { ...state, id: action.payload.id };
+      return { ...state, id: action.payload.id, error: null };
     case actionTypes.SIGN_OUT:
       return {
         ...state,
@@ -51,6 +51,8 @@ const reducer = (state = INITIAL_STATE, action) => {
           ...state,
           error: null,
         };
+    case actionTypes.AUTH_FAIL:
+      return { ...state, error: action.error };
     default:
       return state;
   }
