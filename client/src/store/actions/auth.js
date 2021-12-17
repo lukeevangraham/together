@@ -58,9 +58,10 @@ export const updateUser = (formValues) => async (dispatch) => {
 
 export const changePassword = (formValues) => async (dispatch) => {
   try {
+    console.log("getting ready for response in auth/action")
     const response = await server.put("/change_password", { ...formValues });
-    console.log("RES: ", response);
     dispatch({ type: actionTypes.CHANGE_PASSWORD_SUCCESS })
+    console.log("RES: ", response);
   } catch (error) {
     console.log("ERROR: ", error);
     error.message === "Request failed with status code 401"

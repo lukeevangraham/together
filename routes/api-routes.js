@@ -104,7 +104,7 @@ module.exports = function (app) {
           ),
         },
         { where: { id: req.body.userId } }
-      );
+      ).then((dbUser) => res.json(dbUser))
     }
   );
 };
