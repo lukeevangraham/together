@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import PasswordChange from "./PasswordChange/PasswordChange";
+import Image from "./Image/Image";
 import { updateUser } from "../../../store/actions/";
 
 import classes from "./Profile.module.scss";
@@ -155,6 +156,7 @@ const Profile = ({
       <h2>Your Profile Settings</h2>
       {renderProfileForm}
       <PasswordChange classes={classes} userId={user.id} userEmail={user.email} />
+      <Image />
     </div>
   );
 };

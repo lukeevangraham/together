@@ -1,8 +1,10 @@
+require("dotenv/config")
 const express = require("express");
 const session = require("express-session")
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
+const bodyParser = require("body-parser");
 const passport = require("./config/passport");
 const db = require("./models");
 
@@ -20,6 +22,9 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }))
+app.use(bodyParser.json({ limit: "50mb", extended: true }))
 
 require("./routes/api-routes")(app)
 
