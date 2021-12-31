@@ -3,8 +3,9 @@ import server from "../../apis/server";
 // import res from "express/lib/response";
 
 export const addImage = (imageData) => async (dispatch) => {
-    console.log("adding image")
+    console.log("adding image", imageData)
     try {
+        console.log("imageData", imageData)
         const response = await server.post("/addImage", imageData)
         dispatch({ type: actionTypes.ADD_IMAGE, payload: response.data })
     } catch (error) {

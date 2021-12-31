@@ -5,11 +5,16 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const bodyParser = require("body-parser");
+const multer = require("multer");
+const cloudinary = require("cloudinary");
 const passport = require("./config/passport");
 const db = require("./models");
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.json({ limit: "50mb", extended: true }))
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 1000000 }))
+
+// app.use(express.urlencoded({ limit: "50mb", extended: true }));
+// app.use(express.json({ limit: "50mb" }));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -23,10 +28,26 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }))
-app.use(bodyParser.json({ limit: "50mb", extended: true }))
+
+
+// IMAGE UPLOAD CONFIGURATION
+
+
+const storage = multer.diskStorage({ filename: (req, file, callback) => callback(null, Date.now() + file.originalname) })
+const imageFilter = (req, file, cb) => {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error("Only image files are accepted!"), false)
+  }
+  cb(null, true)
+}
+
+const upload = multer({ storage: storage, fileFilter: imageFilter })
+
+cloudinary.config({ cloud_name: "diqgdacjy", api_key: process.env.CLOUDINARY_API_KEY, api_secret: process.env.CLOUDINARY_API_SECRET })
 
 require("./routes/api-routes")(app)
+require("./routes/image-api-routes")(app, cloudinary, upload)
 
 // Send every request to the React app
 // Define any API routes before this runs

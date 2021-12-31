@@ -13,15 +13,21 @@ const Image = ({ addImage }) => {
         e.preventDefault();
 
         // console.log("SUBMITTED: ", image)
-        addImage(image)
+        let formData = new FormData()
+        formData.append("image", image)
+        // formData.append("text: ", "hello")
+        // for (var value of formData.values()) {
+        //     console.log(value)
+        // }
+        addImage(formData)
         setImage("");
     }
 
     return (
-        <div>
-            <input type="file" onChange={onChangeImage} />
-            <button type="submit" onClick={onSubmit}>Submit</button>
-        </div>
+        <form encType="multipart/form-data" onSubmit={onSubmit}>
+            <input type="file" name="image" onChange={onChangeImage} />
+            <button type="submit">Submit</button>
+        </form>
     )
 }
 
