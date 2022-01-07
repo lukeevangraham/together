@@ -156,7 +156,7 @@ const Profile = ({
       <h2>Your Profile Settings</h2>
       {renderProfileForm}
       <PasswordChange classes={classes} userId={user.id} userEmail={user.email} />
-      <Image />
+      <Image userId={user.id} />
     </div>
   );
 };

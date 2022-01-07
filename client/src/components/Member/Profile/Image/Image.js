@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addImage } from "../../../../store/actions";
 
-const Image = ({ addImage }) => {
+const Image = ({ addImage, userId }) => {
     let [image, setImage] = useState("")
 
     const onChangeImage = e => {
@@ -15,6 +15,7 @@ const Image = ({ addImage }) => {
         // console.log("SUBMITTED: ", image)
         let formData = new FormData()
         formData.append("image", image)
+        formData.append("userId", userId)
         // formData.append("text: ", "hello")
         // for (var value of formData.values()) {
         //     console.log(value)
