@@ -28,7 +28,8 @@ const Toolbar = ({ signOut, user }) => {
           </div>
           {user.firstName ? (
             <NavLink to={"profile"} exact="true" className={classes.userButton}>
-              <div>{user.firstName[0]}</div>
+              {user.image ? <img src={user.image.image} alt="" /> : <div>{user.firstName[0]}</div> }
+              
               <div>{user.firstName}</div>
             </NavLink>
           ) : null}

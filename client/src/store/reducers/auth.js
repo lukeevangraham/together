@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   lastName: null,
   error: null,
   passChangeError: null,
+  image: null
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -32,6 +33,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         email: action.payload.email,
+        image: action.payload.image
       };
     case actionTypes.UPDATE_USER:
       console.log("REDUCER LOAD: ", action.payload);
