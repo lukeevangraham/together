@@ -28,8 +28,8 @@ const Toolbar = ({ signOut, user }) => {
           </div>
           {user.firstName ? (
             <NavLink to={"profile"} exact="true" className={classes.userButton}>
-              {user.image ? <img src={user.image.image} alt="" /> : <div>{user.firstName[0]}</div> }
-              
+              {user.image ? <img src={user.image.image} srcset={`${user.image.image.replace('upload/', 'upload/w_30/')} 30w, ${user.image.image.replace('upload/', 'upload/w_50/')} 50w, ${user.image.image.replace('upload/', 'upload/w_100/')} 100w, ${user.image.image.replace('upload/', 'upload/w_150/')} 150w`} sizes="(max-width: 1200px) 30px, 50px" alt="" /> : <div>{user.firstName[0]}</div>}
+
               <div>{user.firstName}</div>
             </NavLink>
           ) : null}
