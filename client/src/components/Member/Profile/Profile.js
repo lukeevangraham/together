@@ -155,8 +155,12 @@ const Profile = ({
     <div className={classes.settings}>
       <h2>Your Profile Settings</h2>
       {renderProfileForm}
-      <PasswordChange classes={classes} userId={user.id} userEmail={user.email} />
-      <Image userId={user.id} />
+      <PasswordChange
+        classes={classes}
+        userId={user.id}
+        userEmail={user.email}
+      />
+      <Image userId={user.id} existingImage={user.image} classes={classes} />
     </div>
   );
 };
