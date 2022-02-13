@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addImage } from "../../../../store/actions";
+import Button from "../../../UI/Button/Button";
 
 import customClasses from "./Image.module.scss";
 
@@ -35,9 +36,8 @@ const Image = ({ addImage, userId, classes, existingImage }) => {
         onSubmit={onSubmit}
         className={classes.settings__form}
       >
-        <div style={{ position: "relative", width: "300px" }}>
+        <div className={customClasses.fileContainer}>
           <img
-            style={{ borderRadius: "50%" }}
             src={existingImage.image}
             srcSet={`${existingImage.image.replace(
               "upload/",
@@ -63,7 +63,8 @@ const Image = ({ addImage, userId, classes, existingImage }) => {
             Choose File
           </label>
         </div>
-        <button type="submit">Submit</button>
+        {/* <button type="submit">Submit</button> */}
+        <Button type="submit" color="green">Submit</Button>
       </form>
     </>
   );

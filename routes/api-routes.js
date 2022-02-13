@@ -57,7 +57,8 @@ module.exports = function (app) {
       db.Image.findOne({
         where: {
           userId: req.user.id
-        }
+        },
+        order: [['createdAt', 'DESC']]
       }).then((dbImage) => {
         res.json({
           id: req.user.id,

@@ -1,14 +1,43 @@
-.customFileUpload {
-  background-color: #f3efcca4;
-  position: absolute;
-  left: 50%;
-  top: 80%;
-  transform: translate(-50%, -50%);
-  padding: .5rem;
-  border-radius: 5px;
-  cursor: pointer;
+@import "../../../../assets/sass/variables";
 
-  input[type="file"] {
-    display: none;
+.fileContainer {
+  position: relative;
+  width: 30rem !important;
+  height: 30rem;
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    height: 30rem;
+    width: 30rem;
+  }
+
+  .customFileUpload {
+    background-color: #f3efcca4;
+    position: absolute;
+    left: 50%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    input[type="file"] {
+      display: none;
+    }
+
+    &:hover {
+      transform: translate(-50%, -60%);
+      box-shadow: 0 1.7rem 2rem rgba($color-black, 0.2);
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+        transform: translate(-50%, -45%);
+        box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+    }
   }
 }
