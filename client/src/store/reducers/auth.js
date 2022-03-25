@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   lastName: null,
   error: null,
   passChangeError: null,
-  image: null
+  image: null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -33,7 +33,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         email: action.payload.email,
-        image: action.payload.image
+        image: action.payload.image,
       };
     case actionTypes.UPDATE_USER:
       console.log("REDUCER LOAD: ", action.payload);
@@ -60,8 +60,10 @@ const reducer = (state = INITIAL_STATE, action) => {
     case actionTypes.CHANGE_PASSWORD_FAIL:
       return { ...state, passChangeError: action.error };
     case actionTypes.CHANGE_PASSWORD_SUCCESS:
-      console.log("SUCCESS!!")
+      console.log("SUCCESS!!");
       return { ...state, passChangeError: null };
+    case actionTypes.ADD_USER_IMAGE:
+      return { ...state, image: action.payload };
     default:
       return state;
   }

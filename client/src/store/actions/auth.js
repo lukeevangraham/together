@@ -58,9 +58,9 @@ export const updateUser = (formValues) => async (dispatch) => {
 
 export const changePassword = (formValues) => async (dispatch) => {
   try {
-    console.log("getting ready for response in auth/action")
+    console.log("getting ready for response in auth/action");
     const response = await server.put("/change_password", { ...formValues });
-    dispatch({ type: actionTypes.CHANGE_PASSWORD_SUCCESS })
+    dispatch({ type: actionTypes.CHANGE_PASSWORD_SUCCESS });
     console.log("RES: ", response);
   } catch (error) {
     console.log("ERROR: ", error);
@@ -70,5 +70,15 @@ export const changePassword = (formValues) => async (dispatch) => {
           error: { ...error, message: "Invalid current password" },
         })
       : dispatch({ type: actionTypes.AUTH_FAIL, error: error });
+  }
+};
+
+export const addUserImage = (imageData) => async (dispatch) => {
+  try {
+    const response = await server.post("/addImage", imageData);
+    dispatch({ type: actionTypes.ADD_USER_IMAGE, payload: response.data });
+  } catch (error) {
+    console.log("Error: ", error.message);
+    dispatch({ type: actionTypes.GET_ERRORS, payload: error.response.data });
   }
 };

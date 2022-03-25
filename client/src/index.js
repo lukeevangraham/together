@@ -8,11 +8,9 @@ import App from "./App";
 import "./index.scss";
 
 import authReducer from "./store/reducers/auth";
-import imageReducer from "./store/reducers/image";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  image: imageReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

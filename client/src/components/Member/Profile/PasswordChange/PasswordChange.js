@@ -19,6 +19,7 @@ const PasswordChange = ({
       elementConfig: {
         type: "password",
         placeholder: "Current Password",
+        autoComplete: "current-password",
       },
       value: "",
       validation: {
@@ -30,6 +31,7 @@ const PasswordChange = ({
       elementConfig: {
         type: "password",
         placeholder: "New Password",
+        autoComplete: "new-password",
       },
       value: "",
       validation: {
@@ -41,6 +43,7 @@ const PasswordChange = ({
       elementConfig: {
         type: "password",
         placeholder: "Confirm Password",
+        autoComplete: "confirm-password",
       },
       value: "",
       validation: {
@@ -50,8 +53,10 @@ const PasswordChange = ({
   });
 
   useEffect(() => {
-    passChangeError ? setErrorMessage(passChangeError.message) : setErrorMessage("");
-  }, [passChangeError])
+    passChangeError
+      ? setErrorMessage(passChangeError.message)
+      : setErrorMessage("");
+  }, [passChangeError]);
 
   const inputChangedHandler = (e, inputIdentifier) => {
     const updatedForm = {
@@ -83,7 +88,7 @@ const PasswordChange = ({
         userId: userId,
         newPassword: passwordForm.newPassword.value,
       });
-      setErrorMessage("")
+      setErrorMessage("");
     } else {
       setErrorMessage("The new passwords don't match");
     }
@@ -102,6 +107,13 @@ const PasswordChange = ({
       onSubmit={handlePasswordChangeSubmit}
       className={`${classes.settings__form} ${classes.settings__form__password}`}
     >
+      <input
+        type="text"
+        style={{ display: "none" }}
+        name="username"
+        autoComplete="username"
+        value={userEmail}
+      />
       {passwordChangeFormElementsArray.map((formElement) => (
         <Input
           key={formElement.id}

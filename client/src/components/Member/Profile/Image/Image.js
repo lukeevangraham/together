@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { addImage } from "../../../../store/actions";
+import { addUserImage, getUser } from "../../../../store/actions";
 import Button from "../../../UI/Button/Button";
 
 import customClasses from "./Image.module.scss";
 
-const Image = ({ addImage, userId, classes, existingImage }) => {
+const Image = ({ addUserImage, userId, classes, existingImage }) => {
   let [image, setImage] = useState("");
+  let [uploadedImage, setUploadedImage] = useState("");
 
   const onChangeImage = (e) => {
+    // console.log("IMAGE CHANGED! ", e.target.files[0]);
+    // var reader = new FileReader();
+    // var url = reader.readAsDataURL(e.target.files[0]);
+    // console.log("OTHER: URL: ", URL.createObjectURL(e.target.files[0]));
+
     setImage(e.target.files[0]);
+    setUploadedImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const onSubmit = (e) => {
@@ -23,14 +30,13 @@ const Image = ({ addImage, userId, classes, existingImage }) => {
     // for (var value of formData.values()) {
     //     console.log(value)
     // }
-    addImage(formData);
+    addUserImage(formData);
     setImage("");
   };
 
   return (
     <>
       <h2>Your Image</h2>
-      {console.log("EXISTING: ", existingImage)}
       <form
         encType="multipart/form-data"
         onSubmit={onSubmit}
@@ -38,11 +44,15 @@ const Image = ({ addImage, userId, classes, existingImage }) => {
       >
         <div className={customClasses.fileContainer}>
           <img
-            src={existingImage.image}
-            srcSet={`${existingImage.image.replace(
-              "upload/",
-              "upload/w_300/"
-            )} 300w`}
+            src={uploadedImage ? uploadedImage : existingImage.image}
+            srcSet={
+              uploadedImage
+                ? null
+                : `${existingImage.image.replace(
+                    "upload/",
+                    "upload/w_300/"
+                  )} 300w`
+            }
             sizes="300px"
             alt=""
           />
@@ -64,10 +74,12 @@ const Image = ({ addImage, userId, classes, existingImage }) => {
           </label>
         </div>
         {/* <button type="submit">Submit</button> */}
-        <Button type="submit" color="green">Submit</Button>
+        <Button type="submit" color="green">
+          Submit
+        </Button>
       </form>
     </>
   );
 };
 
-export default connect(null, { addImage })(Image);
+export default connect(null, { addUserImage })(Image);

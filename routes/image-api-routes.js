@@ -25,7 +25,7 @@ module.exports = function (app, cloudinary, upload) {
                     res.json(err.message)
                     return res.redirect("/")
                 }
-            })
+            }).then((dbImage) => res.json(dbImage))
         })
     })
 }
