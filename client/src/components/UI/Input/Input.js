@@ -12,7 +12,6 @@ const Input = ({ elementType, elementConfig, value, changed, required }) => {
                 <input className={inputClasses.join(" ")} {...elementConfig} value={value} onChange={changed} name={elementConfig.placeholder} required={required ? true : null} />
             )
             break;
-
         default:
             break;
     }
