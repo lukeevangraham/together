@@ -11,9 +11,8 @@ const Member = ({ user, createPost }) => {
     e.preventDefault();
     createPost({
       body: e.target[0].value,
-      // UserId: user.id,
+      UserId: user.id,
     });
-    createPost();
   };
   return (
     <div>

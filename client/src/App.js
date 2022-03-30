@@ -5,6 +5,7 @@ import Layout from "./components/Layout/Layout";
 import Home from "./components/Home/Home.js";
 import Member from "./components/Member/Member.js";
 import Profile from "./components/Member/Profile/Profile";
+import Search from "./components/Search/Search";
 import { getUser } from "./store/actions";
 import "@fontsource/nunito";
 import "@fontsource/nunito/800.css";
@@ -25,11 +26,13 @@ const App = ({ userEmail, userId, userFirstName, userLastName, getUser }) => {
     routes = (
       <Layout>
         <Routes>
+          <Route path="/profile" element={<Profile />} />
           <Route
-            path="/profile"
+            path="/search/:term"
+            exact
             element={
-              <Profile
-                
+              <Search
+                user={{ userEmail, userId, userFirstName, userLastName }}
               />
             }
           />

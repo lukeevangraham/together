@@ -13,6 +13,14 @@ const Toolbar = ({ signOut, user }) => {
     signOut();
   };
 
+  const onSearchSubmit = (e) => {
+    e.preventDefault();
+
+    const term = e.target[0].value;
+
+    window.location.replace(`/search/${term}`);
+  };
+
   return (
     <div className={classes.toolbarOuter}>
       <div className="gridWidth">
@@ -22,17 +30,49 @@ const Toolbar = ({ signOut, user }) => {
               Together
             </Link>
           </div>
-          {/* <NavigationItems /> */}
-          <div onClick={handleSignOut} className={classes.signoutLink}>
-            Signout
-          </div>
-          {user.firstName ? (
-            <NavLink to={"profile"} exact="true" className={classes.userButton}>
-              {user.image ? <img src={user.image.image} srcSet={`${user.image.image.replace('upload/', 'upload/w_30/')} 30w, ${user.image.image.replace('upload/', 'upload/w_50/')} 50w, ${user.image.image.replace('upload/', 'upload/w_100/')} 100w, ${user.image.image.replace('upload/', 'upload/w_150/')} 150w`} sizes="(max-width: 1200px) 30px, 50px" alt="" /> : <div>{user.firstName[0]}</div>}
 
-              <div>{user.firstName}</div>
-            </NavLink>
-          ) : null}
+          <form onSubmit={onSearchSubmit} className={classes.search}>
+            <input type="text" placeholder="Find someone" />
+          </form>
+
+          {/* <NavigationItems /> */}
+          <div className={classes.navItems}>
+            <div onClick={handleSignOut} className={classes.signoutLink}>
+              Signout
+            </div>
+            {user.firstName ? (
+              <NavLink
+                to={"profile"}
+                exact="true"
+                className={classes.userButton}
+              >
+                {user.image ? (
+                  <img
+                    src={user.image.image}
+                    srcSet={`${user.image.image.replace(
+                      "upload/",
+                      "upload/w_30/"
+                    )} 30w, ${user.image.image.replace(
+                      "upload/",
+                      "upload/w_50/"
+                    )} 50w, ${user.image.image.replace(
+                      "upload/",
+                      "upload/w_100/"
+                    )} 100w, ${user.image.image.replace(
+                      "upload/",
+                      "upload/w_150/"
+                    )} 150w`}
+                    sizes="(max-width: 1200px) 30px, 50px"
+                    alt=""
+                  />
+                ) : (
+                  <div>{user.firstName[0]}</div>
+                )}
+
+                <div>{user.firstName}</div>
+              </NavLink>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
