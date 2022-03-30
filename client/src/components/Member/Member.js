@@ -6,16 +6,15 @@ import { createPost } from "../../store/actions";
 
 import classes from "./Member.module.scss";
 
-const handlePostSubmit = (e) => {
-  e.preventDefault();
-  createPost({
-    body: e.target[0].value,
-    // UserId: user.id,
-  });
-  createPost();
-};
-
-const Member = ({ user }) => {
+const Member = ({ user, createPost }) => {
+  const handlePostSubmit = (e) => {
+    e.preventDefault();
+    createPost({
+      body: e.target[0].value,
+      // UserId: user.id,
+    });
+    createPost();
+  };
   return (
     <div>
       {/* {console.log("LOOK HERE: ", user)} */}
@@ -42,4 +41,4 @@ const mapStateToProps = (state) => ({
   user: state.auth,
 });
 
-export default connect(mapStateToProps, null)(Member);
+export default connect(mapStateToProps, { createPost })(Member);

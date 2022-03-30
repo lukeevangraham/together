@@ -10,9 +10,10 @@ import server from "../../apis/server";
 // };
 
 export const createPost = (formValues) => {
-  console.log("HERE [actions]: ", formValues);
   return (dispatch) => {
+    console.log("HERE [actions]: ", formValues);
     server.post("/posts", { ...formValues }).then((response) => {
+      console.log("HERE IS A RESPONSE: ", response.data);
       dispatch({ type: actionTypes.CREATE_POST, payload: response.data });
     });
     // dispatch({ type: actionTypes.CREATE_POST, payload:  })
