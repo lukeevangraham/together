@@ -1,17 +1,29 @@
 import React from "react";
+import { connect } from "react-redux";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "../UI/Button/Button";
+import { createPost } from "../../store/actions";
 
 import classes from "./Member.module.scss";
+
+const handlePostSubmit = (e) => {
+  e.preventDefault();
+  createPost({
+    body: e.target[0].value,
+    // UserId: user.id,
+  });
+  createPost();
+};
 
 const Member = ({ user }) => {
   return (
     <div>
+      {/* {console.log("LOOK HERE: ", user)} */}
       <div className={classes.member}>
-        <form action="" className={classes.newPostForm}>
+        <form onSubmit={handlePostSubmit} className={classes.newPostForm}>
           <TextareaAutosize
             className={classes.newPost}
-            placeholder={`Hello ${user.userFirstName}!  What would you like to say?`}
+            placeholder={`Hello ${user.firstName}!  What would you like to say?`}
             minRows={2}
             required
           />
@@ -26,4 +38,8 @@ const Member = ({ user }) => {
   );
 };
 
-export default Member;
+const mapStateToProps = (state) => ({
+  user: state.auth,
+});
+
+export default connect(mapStateToProps, null)(Member);

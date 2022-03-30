@@ -21,7 +21,7 @@ module.exports = (app) => {
 
   //   POST route for saving a new post
   app.post("/api/posts", async (req, res) => {
-      console.log("[Post ROUTE] BODY: ", body)
+      console.log("[Post ROUTE] BODY: ", req.body)
     try {
       const dbPost = await db.Post.create(req.body);
       res.json(dbPost);

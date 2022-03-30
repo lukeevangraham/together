@@ -8,9 +8,11 @@ import App from "./App";
 import "./index.scss";
 
 import authReducer from "./store/reducers/auth";
+import postReducer from "./store/reducers/post";
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  posts: postReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -48,6 +48,7 @@ cloudinary.config({ cloud_name: "diqgdacjy", api_key: process.env.CLOUDINARY_API
 
 require("./routes/api-routes")(app)
 require("./routes/image-api-routes")(app, cloudinary, upload)
+require("./routes/post-api-routes")(app)
 
 // Send every request to the React app
 // Define any API routes before this runs

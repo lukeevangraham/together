@@ -10,3 +10,9 @@ export const ADD_IMAGE = "ADD_IMAGE";
 export const ADD_USER_IMAGE = "ADD_USER_IMAGE";
 export const GET_IMAGES = "GET_IMAGES";
 export const GET_ERRORS = "GET_ERRORS";
+
+export const CREATE_POST = "CREATE_POST";
+export const FETCH_POSTS = "FETCH_POSTS";
+export const FETCH_POST = "FETCH_POST";
+export const DELETE_POST = "DELETE_POST";
+export const EDIT_POST = "EDIT_POST";
