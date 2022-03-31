@@ -160,7 +160,7 @@ const Profile = ({
         userId={user.id}
         userEmail={user.email}
       />
-      <Image userId={user.id} existingImage={user.image} classes={classes} />
+      <Image userId={user.id} existingImage={user.image} classes={classes} user={user} />
     </div>
   );
 };

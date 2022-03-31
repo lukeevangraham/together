@@ -7,6 +7,12 @@
   border-radius: 50%;
   overflow: hidden;
 
+  .unsetImage {
+    background-color: rgba(153, 153, 153, 0.158);
+    height: 100%;
+    width: 100% !important;
+  }
+
   img {
     object-fit: cover;
     height: 30rem;

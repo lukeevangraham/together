@@ -1,6 +1,6 @@
-require("dotenv/config")
+require("dotenv/config");
 const express = require("express");
-const session = require("express-session")
+const session = require("express-session");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -10,8 +10,14 @@ const cloudinary = require("cloudinary");
 const passport = require("./config/passport");
 const db = require("./models");
 
-app.use(bodyParser.json({ limit: "50mb", extended: true }))
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 1000000 }))
+app.use(bodyParser.json({ limit: "50mb", extended: true }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 1000000,
+  })
+);
 
 // app.use(express.urlencoded({ limit: "50mb", extended: true }));
 // app.use(express.json({ limit: "50mb" }));
@@ -28,27 +34,32 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 // IMAGE UPLOAD CONFIGURATION
 
-
-const storage = multer.diskStorage({ filename: (req, file, callback) => callback(null, Date.now() + file.originalname) })
+const storage = multer.diskStorage({
+  filename: (req, file, callback) =>
+    callback(null, Date.now() + file.originalname),
+});
 const imageFilter = (req, file, cb) => {
   // accept image files only
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-    return cb(new Error("Only image files are accepted!"), false)
+    return cb(new Error("Only image files are accepted!"), false);
   }
-  cb(null, true)
-}
+  cb(null, true);
+};
 
-const upload = multer({ storage: storage, fileFilter: imageFilter })
+const upload = multer({ storage: storage, fileFilter: imageFilter });
 
-cloudinary.config({ cloud_name: "diqgdacjy", api_key: process.env.CLOUDINARY_API_KEY, api_secret: process.env.CLOUDINARY_API_SECRET })
+cloudinary.config({
+  cloud_name: "diqgdacjy",
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-require("./routes/api-routes")(app)
-require("./routes/image-api-routes")(app, cloudinary, upload)
-require("./routes/post-api-routes")(app)
+require("./routes/api-routes")(app);
+require("./routes/image-api-routes")(app, cloudinary, upload);
+require("./routes/post-api-routes")(app);
+require("./routes/user-api-routes")(app);
 
 // Send every request to the React app
 // Define any API routes before this runs

@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   error: null,
   passChangeError: null,
   image: null,
+  searchResults: null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -64,6 +65,9 @@ const reducer = (state = INITIAL_STATE, action) => {
       return { ...state, passChangeError: null };
     case actionTypes.ADD_USER_IMAGE:
       return { ...state, image: action.payload };
+    case actionTypes.SEARCH_USERS:
+      console.log("PAYLOAD: ", action.payload);
+      return { ...state, searchResults: action.payload };
     default:
       return state;
   }

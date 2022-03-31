@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../../store/actions/auth";
 import NavigationItems from "./NavigationItems/NavigationItems";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import classes from "./Toolbar.module.scss";
 
@@ -13,12 +13,20 @@ const Toolbar = ({ signOut, user }) => {
     signOut();
   };
 
+  const navigate = useNavigate();
+
   const onSearchSubmit = (e) => {
     e.preventDefault();
 
     const term = e.target[0].value;
 
-    window.location.replace(`/search/${term}`);
+    // Clear out the input
+    e.target[0].value = "";
+
+    // Unfocus the input
+    document.activeElement.blur();
+
+    navigate(`/search/${term}`);
   };
 
   return (

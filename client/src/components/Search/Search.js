@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { searchUsers } from "../../store/actions";
+import UserIntroCard from "./UserIntroCard/UserIntroCard";
 
-const Search = (props) => {
-  //   const [searchParams, setSearchParams] = useSearchParams();
+import classes from "./Search.module.scss";
 
+const Search = ({ searchUsers, searchResults }) => {
   const { term } = useParams();
 
-  //   setSearchParams(params)
+  useEffect(() => {
+    searchUsers(term);
+  }, [term]);
 
-  //   console.log("PARAMS: ", searchParams)
-
-  console.log("HERE ", term);
-
-  return <div>{term}</div>;
+  return (
+    <div>
+      {searchResults ? (
+        <div className={classes.searchHeading}>
+          Search results for: {term} {console.log("RESULTS", searchResults)}
+        </div>
+      ) : null}
+      {searchResults
+        ? searchResults.map((result) => <UserIntroCard key={result.id} user={result} />)
+        : null}
+    </div>
+  );
 };
 
-export default Search;
+const mapStateToProps = (state) => ({
+  searchResults: state.auth.searchResults,
+});
+
+export default connect(mapStateToProps, { searchUsers })(Search);

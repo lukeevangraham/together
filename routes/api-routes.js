@@ -54,21 +54,21 @@ module.exports = function (app) {
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      db.Image.findOne({
-        where: {
-          userId: req.user.id
-        },
-        order: [['createdAt', 'DESC']]
-      }).then((dbImage) => {
-        res.json({
-          id: req.user.id,
-          email: req.user.email,
-          firstName: req.user.firstName,
-          lastName: req.user.lastName,
-          image: dbImage
-        });
+      // db.Image.findOne({
+      //   where: {
+      //     userId: req.user.id
+      //   },
+      //   order: [['createdAt', 'DESC']]
+      // }).then((dbImage) => {
+      res.json({
+        id: req.user.id,
+        email: req.user.email,
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        // image: dbImage,
+      });
 
-      })
+      // })
     }
   });
 
@@ -113,7 +113,7 @@ module.exports = function (app) {
           ),
         },
         { where: { id: req.body.userId } }
-      ).then((dbUser) => res.json(dbUser))
+      ).then((dbUser) => res.json(dbUser));
     }
   );
 };

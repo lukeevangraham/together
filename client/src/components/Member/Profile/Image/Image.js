@@ -43,19 +43,24 @@ const Image = ({ addUserImage, userId, classes, existingImage }) => {
         className={classes.settings__form}
       >
         <div className={customClasses.fileContainer}>
-          <img
-            src={uploadedImage ? uploadedImage : existingImage.image}
-            srcSet={
-              uploadedImage
-                ? null
-                : `${existingImage.image.replace(
-                    "upload/",
-                    "upload/w_300/"
-                  )} 300w`
-            }
-            sizes="300px"
-            alt=""
-          />
+          {existingImage ? (
+            <img
+              src={uploadedImage ? uploadedImage : existingImage.image}
+              srcSet={
+                uploadedImage
+                  ? null
+                  : `${existingImage.image.replace(
+                      "upload/",
+                      "upload/w_300/"
+                    )} 300w`
+              }
+              sizes="300px"
+              alt=""
+            />
+          ) : (
+            <div className={customClasses.unsetImage} />
+          )}
+
           <label className={customClasses.customFileUpload}>
             <input
               style={{

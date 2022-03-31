@@ -1,0 +1,22 @@
+.userIntroCard {
+  max-width: 50rem;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+//   background-color: #cacaca;
+  padding: 1rem;
+
+  img {
+    width: 12.5rem;
+    height: 12.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .name {
+    //   background-color: orangered;
+    align-self: center;
+    margin-left: 2rem;
+    font-size: large;
+  }
+}

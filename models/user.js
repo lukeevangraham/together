@@ -28,18 +28,35 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-    },
-    {
-      classMethods: {
-        associate: function (models) {
-          User.hasOne(models.Image),
-            User.hasMany(models.Post, {
-              onDelete: "cascade",
-            });
+      fullName: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return `${this.firstName} ${this.lastName}`;
+        },
+        set(value) {
+          throw new Error("Do not try to set the `fullName` value!");
         },
       },
     }
+    // {
+    //   classMethods: {
+    //     associate: function (models) {
+    //       User.hasOne(models.Image),
+    //         User.hasMany(models.Post, {
+    //           onDelete: "cascade",
+    //         });
+    //     },
+    //   },
+    // }
   );
+
+  User.associate = (models) => {
+    User.belongsTo(models.Image),
+      User.hasMany(models.Post, {
+        onDelete: "cascade",
+      });
+  };
+
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
   User.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
