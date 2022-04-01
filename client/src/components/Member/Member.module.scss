@@ -31,7 +31,7 @@
 
       &:focus:invalid {
         border-bottom: 3px solid red;
-    }
+      }
 
       &::-webkit-input-placeholder {
         color: rgb(133, 133, 133);
@@ -42,6 +42,22 @@
       // display: flex;
       // justify-content: end;
       margin-top: 1rem;
+    }
+  }
+
+  .fromFollowings {
+    margin-top: 2rem;
+
+    .postCard {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+
+      img {
+        width: 10rem;
+        border-radius: 50%;
+      }
     }
   }
 }

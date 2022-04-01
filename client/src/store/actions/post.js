@@ -11,6 +11,6 @@ export const createPost = (formValues) => async (dispatch) => {
 };
 
 export const fetchPosts = () => async (dispatch) => {
-  const response = await server.get("/posts")
-  console.log("RES: ", response.data)
-}
+  const response = await server.get("/posts");
+  dispatch({ type: actionTypes.FETCH_POSTS, payload: response.data });
+};

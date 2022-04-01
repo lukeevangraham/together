@@ -8,6 +8,8 @@ const postReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actionTypes.CREATE_POST:
       return { ...state };
+    case actionTypes.FETCH_POSTS:
+      return { ...state, posts: action.payload };
     default:
       return state;
   }
