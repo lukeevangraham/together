@@ -1,14 +1,19 @@
+@import "../../../assets/sass/variables";
+
 .userIntroCard {
   max-width: 50rem;
   margin: auto;
   display: flex;
   justify-content: center;
-//   background-color: #cacaca;
+  align-items: center;
+  background-color: lighten($color-tertiary-dark, 19%);
   padding: 1rem;
+  border-radius: 8px;
+  padding: 1.5rem 0;
 
   img {
-    width: 10rem;
-    height: 10rem;
+    width: 8rem;
+    height: 8rem;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -18,5 +23,9 @@
     align-self: center;
     margin-left: 2rem;
     font-size: large;
+  }
+
+  .followButton {
+    margin-left: 3rem;
   }
 }
