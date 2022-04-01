@@ -16,6 +16,7 @@ module.exports = function (app) {
       // email: req.user.email,
       id: req.user.id,
     };
+    console.log("USEER INFO: ", userInfo)
     res.send(userInfo);
   });
 
@@ -65,6 +66,7 @@ module.exports = function (app) {
         email: req.user.email,
         firstName: req.user.firstName,
         lastName: req.user.lastName,
+        // ImageId: req.user.ImageId
         // image: dbImage,
       });
 

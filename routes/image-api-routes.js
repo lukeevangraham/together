@@ -9,6 +9,8 @@ module.exports = function (app, cloudinary, upload) {
         res.json(err.message);
       }
 
+      console.log("RESULT: ", result);
+
       const newImageObject = {
         image: result.secure_url,
         imageId: result.public_id,
@@ -18,7 +20,7 @@ module.exports = function (app, cloudinary, upload) {
       // add image's public_id to the image object
       req.body.imageId = result.public_id;
 
-      //   console.log("NEW IMG: ", newImageObject);
+      // console.log("NEW IMG: ", newImageObject);
 
       db.Image.create(newImageObject, (err, image) => {
         if (err) {
@@ -30,7 +32,7 @@ module.exports = function (app, cloudinary, upload) {
         console.log("UserId: ", req.body.userId);
         db.User.update(
           {
-            ImageId: dbImage.dataValues.id,
+            ProfilePicture: dbImage.dataValues.id,
           },
           {
             where: { id: req.body.userId },

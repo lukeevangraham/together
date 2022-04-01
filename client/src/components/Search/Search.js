@@ -16,13 +16,17 @@ const Search = ({ searchUsers, searchResults }) => {
   return (
     <div>
       {searchResults ? (
-        <div className={classes.searchHeading}>
-          Search results for: {term} {console.log("RESULTS", searchResults)}
-        </div>
+        <div className={classes.searchHeading}>Search results for: {term}</div>
       ) : null}
-      {searchResults
-        ? searchResults.map((result) => <UserIntroCard key={result.id} user={result} />)
-        : null}
+      {searchResults ? (
+        searchResults.length > 0 ? (
+          searchResults.map((result) => (
+            <UserIntroCard key={result.id} user={result} />
+          ))
+        ) : (
+          <div>No results found</div>
+        )
+      ) : null}
     </div>
   );
 };

@@ -66,7 +66,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     case actionTypes.ADD_USER_IMAGE:
       return { ...state, image: action.payload };
     case actionTypes.SEARCH_USERS:
-      console.log("PAYLOAD: ", action.payload);
       return { ...state, searchResults: action.payload };
     default:
       return state;

@@ -30,7 +30,7 @@ const Toolbar = ({ signOut, user }) => {
   };
 
   return (
-    <div className={classes.toolbarOuter}>
+    <div className={classes.toolbarOuter}>{console.log("USER: ", user)}
       <div className="gridWidth">
         <div className={classes.toolbarInner}>
           <div className={classes.brand}>

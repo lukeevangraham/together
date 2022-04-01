@@ -51,7 +51,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   User.associate = (models) => {
-    User.belongsTo(models.Image),
+    User.belongsTo(models.Image, { as: 'ProfilePicture', constraints: false }),
       User.hasMany(models.Post, {
         onDelete: "cascade",
       });

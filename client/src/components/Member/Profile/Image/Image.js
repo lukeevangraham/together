@@ -10,7 +10,7 @@ const Image = ({ addUserImage, userId, classes, existingImage }) => {
   let [uploadedImage, setUploadedImage] = useState("");
 
   const onChangeImage = (e) => {
-    // console.log("IMAGE CHANGED! ", e.target.files[0]);
+    console.log("IMAGE CHANGED! ", e.target.files[0]);
     // var reader = new FileReader();
     // var url = reader.readAsDataURL(e.target.files[0]);
     // console.log("OTHER: URL: ", URL.createObjectURL(e.target.files[0]));
