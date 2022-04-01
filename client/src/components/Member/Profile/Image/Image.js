@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { addUserImage, getUser } from "../../../../store/actions";
+import { addUserImage } from "../../../../store/actions";
+import InitialProfileImage from "../../../UI/InitalProfileImage/InitialProfileImage";
 import Button from "../../../UI/Button/Button";
 
 import customClasses from "./Image.module.scss";
 
-const Image = ({ addUserImage, userId, classes, existingImage }) => {
+const Image = ({ addUserImage, userId, classes, existingImage, user }) => {
   let [image, setImage] = useState("");
   let [uploadedImage, setUploadedImage] = useState("");
 
@@ -40,7 +41,7 @@ const Image = ({ addUserImage, userId, classes, existingImage }) => {
       <form
         encType="multipart/form-data"
         onSubmit={onSubmit}
-        className={classes.settings__form}
+        className={customClasses.settings__form}
       >
         <div className={customClasses.fileContainer}>
           {existingImage ? (
@@ -58,7 +59,7 @@ const Image = ({ addUserImage, userId, classes, existingImage }) => {
               alt=""
             />
           ) : (
-            <div className={customClasses.unsetImage} />
+            <InitialProfileImage user={user} size={300} />
           )}
 
           <label className={customClasses.customFileUpload}>
@@ -80,7 +81,7 @@ const Image = ({ addUserImage, userId, classes, existingImage }) => {
         </div>
         {/* <button type="submit">Submit</button> */}
         <Button type="submit" color="green">
-          Submit
+          Submit Image
         </Button>
       </form>
     </>

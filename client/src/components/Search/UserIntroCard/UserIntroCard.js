@@ -1,19 +1,22 @@
 import React from "react";
+import InitialProfileImage from "../../UI/InitalProfileImage/InitialProfileImage"
 
 import classes from "./UserIntroCard.module.scss";
 
-const UserIntroCard = ({ user }) =>
-  user.Image ? (
-    <div className={classes.userIntroCard}>
+const UserIntroCard = ({ user }) => (
+  <div className={classes.userIntroCard}>
+    {console.log("RES: ", user)}
+    {user.ProfilePicture ? (
       <img
-        src={user.Image.image}
-        alt={user.Image.title}
-        srcSet={`${user.Image.image.replace("upload/", "upload/w_125/")} 125w`}
+        src={user.ProfilePicture.image}
+        alt={user.ProfilePicture.title}
+        srcSet={`${user.ProfilePicture.image.replace("upload/", "upload/w_125/")} 125w`}
       />
-      <div className={classes.name}>
-        {user.firstName} {user.lastName}
-      </div>
+    ) : <InitialProfileImage user={user} size={100} /> }
+    <div className={classes.name}>
+      {user.firstName} {user.lastName}
     </div>
-  ) : null;
+  </div>
+);
 
 export default UserIntroCard;

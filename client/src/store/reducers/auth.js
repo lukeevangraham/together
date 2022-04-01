@@ -1,4 +1,3 @@
-import { changePassword } from "../actions";
 import * as actionTypes from "../actions/actionTypes";
 
 const INITIAL_STATE = {

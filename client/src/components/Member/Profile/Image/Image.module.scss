@@ -1,5 +1,13 @@
 @import "../../../../assets/sass/variables";
 
+.settings__form {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+  gap: 1rem;
+}
+
 .fileContainer {
   position: relative;
   width: 30rem !important;
@@ -41,9 +49,9 @@
 
     &:active,
     &:focus {
-        outline: none;
-        transform: translate(-50%, -45%);
-        box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+      outline: none;
+      transform: translate(-50%, -45%);
+      box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
     }
   }
 }

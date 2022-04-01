@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../../store/actions/auth";
-import NavigationItems from "./NavigationItems/NavigationItems";
+// import NavigationItems from "./NavigationItems/NavigationItems";"
 import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import classes from "./Toolbar.module.scss";
+import InitialProfileImage from "../../UI/InitalProfileImage/InitialProfileImage";
 
 const Toolbar = ({ signOut, user }) => {
   const handleSignOut = (e) => {
@@ -30,7 +31,7 @@ const Toolbar = ({ signOut, user }) => {
   };
 
   return (
-    <div className={classes.toolbarOuter}>{console.log("USER: ", user)}
+    <div className={classes.toolbarOuter}>
       <div className="gridWidth">
         <div className={classes.toolbarInner}>
           <div className={classes.brand}>
@@ -56,6 +57,7 @@ const Toolbar = ({ signOut, user }) => {
               >
                 {user.image ? (
                   <img
+                  className={classes.profileImage}
                     src={user.image.image}
                     srcSet={`${user.image.image.replace(
                       "upload/",
@@ -74,7 +76,7 @@ const Toolbar = ({ signOut, user }) => {
                     alt=""
                   />
                 ) : (
-                  <div>{user.firstName[0]}</div>
+                  <InitialProfileImage user={user} size={30} />
                 )}
 
                 <div>{user.firstName}</div>

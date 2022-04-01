@@ -16,7 +16,7 @@ module.exports = function (app) {
       // email: req.user.email,
       id: req.user.id,
     };
-    console.log("USEER INFO: ", userInfo)
+    console.log("USEER INFO: ", userInfo);
     res.send(userInfo);
   });
 
@@ -55,24 +55,26 @@ module.exports = function (app) {
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      // db.Image.findOne({
-      //   where: {
-      //     userId: req.user.id
-      //   },
-      //   order: [['createdAt', 'DESC']]
-      // }).then((dbImage) => {
-      res.json({
-        id: req.user.id,
-        email: req.user.email,
-        firstName: req.user.firstName,
-        lastName: req.user.lastName,
-        // ImageId: req.user.ImageId
-        // image: dbImage,
-      });
+      db.Image.findOne({
+        where: {
+          id: req.user.ProfilePictureId,
+        },
+      }).then((dbImage) => {
+        res.json({
+          id: req.user.id,
+          email: req.user.email,
+          firstName: req.user.firstName,
+          lastName: req.user.lastName,
+          image: req.user.ProfilePicture,
+          // ImageId: req.user.ImageId
+          image: dbImage,
+        });
 
-      // })
+        // })
+      });
     }
   });
+  // });
 
   app.put("/api/user_data", async (req, res) => {
     if (!req.user) {

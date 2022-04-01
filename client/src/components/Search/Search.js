@@ -11,7 +11,7 @@ const Search = ({ searchUsers, searchResults }) => {
 
   useEffect(() => {
     searchUsers(term);
-  }, [term]);
+  }, [term, searchUsers]);
 
   return (
     <div>

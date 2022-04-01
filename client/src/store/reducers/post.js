@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   posts: null,
 };
 
-export default (state = INITIAL_STATE, action) => {
+const postReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actionTypes.CREATE_POST:
       return { ...state };
@@ -12,3 +12,14 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+// export default (state = INITIAL_STATE, action) => {
+//   switch (action.type) {
+//     case actionTypes.CREATE_POST:
+//       return { ...state };
+//     default:
+//       return state;
+//   }
+// };
+
+export default postReducer;

@@ -32,7 +32,7 @@ module.exports = function (app, cloudinary, upload) {
         console.log("UserId: ", req.body.userId);
         db.User.update(
           {
-            ProfilePicture: dbImage.dataValues.id,
+            ProfilePictureId: dbImage.dataValues.id,
           },
           {
             where: { id: req.body.userId },

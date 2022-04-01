@@ -21,7 +21,7 @@ module.exports = (app) => {
             req.params.q
           ),
           attributes: ["firstName", "lastName", "id"],
-          include: [db.Image],
+          include: "ProfilePicture",
         });
       } else if (req.params.q.split(" ").length === 1) {
         dbUser = await db.User.findAll({
@@ -29,7 +29,7 @@ module.exports = (app) => {
             [or]: [{ firstName: req.params.q }, { lastName: req.params.q }],
           },
           attributes: ["firstName", "lastName", "id"],
-          include: [db.Image],
+          include: "ProfilePicture",
         });
       }
 

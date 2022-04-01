@@ -112,7 +112,7 @@ const PasswordChange = ({
         style={{ display: "none" }}
         name="username"
         autoComplete="username"
-        value={userEmail}
+        defaultValue={userEmail}
       />
       {passwordChangeFormElementsArray.map((formElement) => (
         <Input
