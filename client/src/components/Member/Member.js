@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "../UI/Button/Button";
-import { createPost } from "../../store/actions";
+import { createPost, fetchPosts } from "../../store/actions";
 
 import classes from "./Member.module.scss";
 
-const Member = ({ user, createPost }) => {
+const Member = ({ user, createPost, fetchPosts }) => {
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
   const handlePostSubmit = (e) => {
     e.preventDefault();
     createPost({
@@ -40,4 +44,4 @@ const mapStateToProps = (state) => ({
   user: state.auth,
 });
 
-export default connect(mapStateToProps, { createPost })(Member);
+export default connect(mapStateToProps, { createPost, fetchPosts })(Member);

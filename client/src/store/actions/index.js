@@ -6,5 +6,5 @@ export {
   changePassword,
   addUserImage,
 } from "./auth";
-export { createPost } from "./post";
-export { searchUsers } from "./users";
+export { createPost, fetchPosts } from "./post";
+export { searchUsers, followUser } from "./users";

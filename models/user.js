@@ -51,10 +51,13 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   User.associate = (models) => {
-    User.belongsTo(models.Image, { as: 'ProfilePicture', constraints: false }),
+    User.belongsTo(models.Image, { as: "ProfilePicture", constraints: false }),
       User.hasMany(models.Post, {
         onDelete: "cascade",
       });
+    User.hasMany(models.Following, {
+      onDelete: "cascade",
+    });
   };
 
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database

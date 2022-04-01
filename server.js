@@ -60,6 +60,7 @@ require("./routes/api-routes")(app);
 require("./routes/image-api-routes")(app, cloudinary, upload);
 require("./routes/post-api-routes")(app);
 require("./routes/user-api-routes")(app);
+require("./routes/following-routes")(app);
 
 // Send every request to the React app
 // Define any API routes before this runs

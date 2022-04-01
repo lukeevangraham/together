@@ -9,3 +9,8 @@ export const createPost = (formValues) => async (dispatch) => {
     console.log("[Post Action]: ", error);
   }
 };
+
+export const fetchPosts = () => async (dispatch) => {
+  const response = await server.get("/posts")
+  console.log("RES: ", response.data)
+}
