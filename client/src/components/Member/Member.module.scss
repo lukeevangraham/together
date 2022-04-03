@@ -39,8 +39,6 @@
     }
 
     .submitButton {
-      // display: flex;
-      // justify-content: end;
       margin-top: 1rem;
     }
   }
@@ -53,10 +51,55 @@
       align-items: center;
       gap: 2rem;
       margin-bottom: 2rem;
+      background-color: lighten($color: $color-secondary-dark, $amount: 75);
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
 
       img {
         width: 10rem;
+        height: 10rem;
+        object-fit: cover;
         border-radius: 50%;
+      }
+
+      .text {
+        flex-grow: 1;
+
+        .topText {
+          display: flex;
+
+          div:first-of-type {
+            flex-grow: 1;
+          }
+
+          .name {
+            color: $color-black;
+            // font-weight: 800;
+            font-size: 2rem;
+          }
+
+          .when {
+            font-size: 1.5rem;
+            // font-weight: 800;
+            color: lighten($color: $color-black, $amount: 30);
+          }
+
+          svg:first-of-type {
+            // background-color: orangered;
+            margin-right: .7rem;
+          }
+
+          &__icon {
+            width: 2rem;
+            height: 2rem;
+            fill: $color-black;
+          }
+        }
+
+        .body {
+          color: $color-black;
+          margin-top: 0.5rem;
+        }
       }
     }
   }
