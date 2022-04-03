@@ -86,13 +86,13 @@
 
           svg:first-of-type {
             // background-color: orangered;
-            margin-right: .7rem;
+            margin-right: .8rem;
           }
 
           &__icon {
             width: 2rem;
             height: 2rem;
-            fill: $color-black;
+            fill: lighten($color: $color-black, $amount: 20);
           }
         }
 
