@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "../UI/Button/Button";
 import InitialProfileImage from "../UI/InitalProfileImage/InitialProfileImage";
-import { createPost, fetchPosts } from "../../store/actions";
+import { createPost, fetchPosts, deletePost } from "../../store/actions";
 
 import classes from "./Member.module.scss";
 
-const Member = ({ user, createPost, fetchPosts, posts }) => {
+const Member = ({ user, createPost, fetchPosts, deletePost, posts }) => {
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
@@ -78,7 +78,10 @@ const Member = ({ user, createPost, fetchPosts, posts }) => {
                             <svg className={classes.topText__icon}>
                               <use xlinkHref="/images/sprite.svg#icon-edit"></use>
                             </svg>
-                            <svg className={classes.topText__icon}>
+                            <svg
+                              onClick={() => deletePost(post.id)}
+                              className={classes.topText__icon}
+                            >
                               <use xlinkHref="/images/sprite.svg#icon-trash"></use>
                             </svg>
                           </>
@@ -101,4 +104,6 @@ const mapStateToProps = (state) => ({
   posts: state.posts.posts,
 });
 
-export default connect(mapStateToProps, { createPost, fetchPosts })(Member);
+export default connect(mapStateToProps, { createPost, fetchPosts, deletePost })(
+  Member
+);
