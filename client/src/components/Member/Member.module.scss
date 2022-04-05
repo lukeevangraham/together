@@ -93,6 +93,13 @@
             width: 2rem;
             height: 2rem;
             fill: lighten($color: $color-black, $amount: 20);
+            opacity: .65;
+            transition: all .3s;
+
+            &:hover {
+              cursor: pointer;
+              opacity: 1;
+            }
           }
         }
 
