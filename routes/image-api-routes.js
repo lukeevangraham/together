@@ -4,11 +4,7 @@ module.exports = function (app, cloudinary, upload) {
   app.post("/api/addImage", upload.single("image"), (req, res) => {
     console.log("FILE: ", req.file.path);
     // console.log("MORE: ", req.body.userId)
-    cloudinary.v2.uploader.upload(req.file.path, (err, result) => {
-      if (err) {
-        res.json(err.message);
-      }
-
+    cloudinary.v2.uploader.upload(req.file.path).then((result) => {
       console.log("RESULT: ", result);
 
       const newImageObject = {
