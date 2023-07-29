@@ -40,24 +40,30 @@ const Member = ({ user, createPost, fetchPosts, deletePost, posts }) => {
           {posts
             ? posts.map((post) => {
                 const postDate = new Date(post.createdAt);
+                console.log("P: ", post);
                 return (
                   <div key={post.id} className={classes.postCard}>
-                    {console.log("POST: ", post)}
-                    {console.log("USER: ", user)}
-                    {post.User.ProfilePicture ? (
-                      <img
-                        src={post.User.ProfilePicture.image}
-                        alt=""
-                        srcset=""
-                      />
+                    {post.User && post.User.ProfilePicture ? (
+                      <img src={post.User.ProfilePicture.image} alt="" />
                     ) : (
-                      <InitialProfileImage size={100} user={post.User} />
+                      <InitialProfileImage
+                        size={100}
+                        user={post.User}
+                        useCurrentUser={
+                          post.UserId === "currentUser492" ? true : false
+                        }
+                      />
                     )}
                     <div className={classes.text}>
                       <div className={classes.topText}>
                         <div>
                           <div className={classes.name}>
-                            {post.User.firstName} {post.User.lastName}
+                            {post.UserId === "currentUser492"
+                              ? user.firstName
+                              : post.User.firstName}{" "}
+                            {post.UserId === "currentUser492"
+                              ? user.lastName
+                              : post.User.lastName}
                           </div>
                           <div className={classes.when}>
                             {`${postDate.toLocaleString("en-US", {
@@ -73,7 +79,7 @@ const Member = ({ user, createPost, fetchPosts, deletePost, posts }) => {
                             })}`}</span>
                           </div>
                         </div>
-                        {post.UserId === user.id ? (
+                        {post.UserId === user.id || post.UserId === "currentUser492" ? (
                           <>
                             <svg className={classes.topText__icon}>
                               <use xlinkHref="/images/sprite.svg#icon-edit"></use>

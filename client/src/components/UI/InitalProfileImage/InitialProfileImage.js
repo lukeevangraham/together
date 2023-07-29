@@ -1,13 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import classes from "./InitialProfileImage.module.scss";
 
-const InitialProfileImage = ({ user, size }) => (
+const InitialProfileImage = ({ user, size, useCurrentUser, currentUser }) => (
   <div style={{ width: size, height: size, borderRadius: "50%" }}>
     <div style={{ fontSize: size * 0.7 }} className={classes.initialImage}>
-      {user.firstName[0]}
+      {useCurrentUser ? currentUser.firstName[0] : user.firstName[0]}
     </div>
   </div>
 );
 
-export default InitialProfileImage;
+const mapStateToProps = (state) => ({
+  currentUser: state.auth,
+});
+
+export default connect(mapStateToProps)(InitialProfileImage);

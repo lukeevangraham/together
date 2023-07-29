@@ -23,7 +23,7 @@ const Image = ({ addUserImage, userId, classes, existingImage, user }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // console.log("SUBMITTED: ", image)
+    console.log("SUBMITTED: ", image)
     let formData = new FormData();
     formData.append("image", image);
     formData.append("userId", userId);
@@ -31,6 +31,9 @@ const Image = ({ addUserImage, userId, classes, existingImage, user }) => {
     // for (var value of formData.values()) {
     //     console.log(value)
     // }
+
+    console.log("FD: ", formData)
+
     addUserImage(formData);
     setImage("");
   };
