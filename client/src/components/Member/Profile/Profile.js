@@ -93,7 +93,7 @@ const Profile = ({
         setProfileForm(updatedProfileForm);
       });
     }
-  }, [userFirstName, userLastName, formError, user]);
+  }, [userFirstName, userLastName, formError, user, profileForm]);
 
   const profileFormElementsArray = [];
   for (let key in profileForm) {
@@ -160,7 +160,12 @@ const Profile = ({
         userId={user.id}
         userEmail={user.email}
       />
-      <Image userId={user.id} existingImage={user.image} classes={classes} user={user} />
+      <Image
+        userId={user.id}
+        existingImage={user.image}
+        classes={classes}
+        user={user}
+      />
     </div>
   );
 };

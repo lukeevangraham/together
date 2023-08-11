@@ -8,6 +8,7 @@ module.exports = (app) => {
   app.post("/api/posts", async (req, res) => {
     try {
       const dbPost = await db.Post.create(req.body);
+      dbPost.UserId = req.user.id;
       res.json(dbPost);
     } catch (error) {
       console.log("ERROR: ", error);
@@ -29,9 +30,8 @@ module.exports = (app) => {
 
       db.Post.findAll({
         where: {
-          UserId: {
-            [Op.or]: peopleOfInterest,
-          },
+          // Users can view their own posts, or people they follow
+          [Op.or]: [{ UserId: req.user.id }, { UserId: peopleOfInterest }],
         },
         include: [
           {
@@ -54,6 +54,14 @@ module.exports = (app) => {
         id: req.params.id,
         UserId: req.user.id,
       },
+    });
+    res.json(dbPost);
+  });
+
+  // PUT route for updating posts
+  app.put("/api/posts/", async (req, res) => {
+    const dbPost = await db.Post.update(req.body, {
+      where: { id: req.body.id },
     });
     res.json(dbPost);
   });

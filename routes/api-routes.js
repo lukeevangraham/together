@@ -16,7 +16,7 @@ module.exports = function (app) {
       // email: req.user.email,
       id: req.user.id,
     };
-    console.log("USEER INFO: ", userInfo);
+    console.log("USER INFO: ", userInfo);
     res.send(userInfo);
   });
 

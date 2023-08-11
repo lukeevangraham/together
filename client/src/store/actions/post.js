@@ -5,7 +5,6 @@ export const createPost = (formValues) => async (dispatch) => {
   try {
     const response = await server.post("/posts", { ...formValues });
     dispatch({ type: actionTypes.CREATE_POST, payload: response.data });
-    console.log("RES: ", response)
   } catch (error) {
     console.log("[Post Action]: ", error);
   }
@@ -26,5 +25,20 @@ export const deletePost = (postId) => async (dispatch) => {
     });
   } catch (error) {
     console.log("error: ", error);
+  }
+};
+
+export const editPost = (postInfo) => async (dispatch) => {
+  try {
+    const response = await server.put(`/posts`, {
+      body: postInfo.body,
+      id: postInfo.id,
+    });
+    dispatch({
+      type: actionTypes.EDIT_POST,
+      payload: postInfo,
+    });
+  } catch (error) {
+    console.log("E: ", error);
   }
 };

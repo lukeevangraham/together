@@ -7,11 +7,10 @@ const INITIAL_STATE = {
 const postReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actionTypes.CREATE_POST:
-      console.log("creating post", action.payload);
       const newPost = {
         id: action.payload.id,
         body: action.payload.body,
-        UserId: "currentUser492",
+        UserId: action.payload.UserId,
         createdAt: new Date(),
       };
       return {
@@ -24,6 +23,17 @@ const postReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         posts: state.posts.filter((post) => post.id !== action.payload.id),
+      };
+    case actionTypes.EDIT_POST:
+      return {
+        ...state,
+        posts: state.posts.map(function (post) {
+          if (post.id === action.payload.id) {
+            return { ...post, body: action.payload.body };
+          } else {
+            return post;
+          }
+        }),
       };
     default:
       return state;

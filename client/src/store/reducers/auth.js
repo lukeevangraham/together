@@ -26,7 +26,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     case actionTypes.SIGN_UP:
       return { ...state, email: action.payload };
     case actionTypes.GET_USER:
-      console.log("GET USER LOAD", action.payload);
       return {
         ...state,
         id: action.payload.id,
