@@ -14,7 +14,6 @@ const UserIntroCard = ({ user, followUser }) => {
 
   return (
     <div className={classes.userIntroCard}>
-      {console.log("RES: ", user)}
       {user.ProfilePicture ? (
         <img
           src={user.ProfilePicture.image}
