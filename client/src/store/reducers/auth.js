@@ -65,6 +65,32 @@ const reducer = (state = INITIAL_STATE, action) => {
       return { ...state, image: action.payload };
     case actionTypes.SEARCH_USERS:
       return { ...state, searchResults: action.payload };
+    case actionTypes.FOLLOW_USER:
+      return {
+        ...state,
+        searchResults: [
+          ...state.searchResults.map(function (user) {
+            if (user.id === action.payload.followingUserId) {
+              user.followed = true;
+              return user;
+            } else {
+              return user;
+            }
+          }),
+        ],
+      };
+    case actionTypes.UNFOLLOW_USER:
+      return {
+        ...state,
+        searchResults: [
+          ...state.searchResults.map(function (user) {
+            if (user.id === action.payload) {
+              user.followed = false;
+              return user;
+            } else return user;
+          }),
+        ],
+      };
     default:
       return state;
   }

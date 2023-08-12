@@ -19,3 +19,4 @@ export const EDIT_POST = "EDIT_POST";
 
 export const SEARCH_USERS = "SEARCH_USERS";
 export const FOLLOW_USER = "FOLLOW_USER";
+export const UNFOLLOW_USER = "UNFOLLOW_USER";

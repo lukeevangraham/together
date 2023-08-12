@@ -7,4 +7,4 @@ export {
   addUserImage,
 } from "./auth";
 export { createPost, fetchPosts, deletePost, editPost } from "./post";
-export { searchUsers, followUser } from "./users";
+export { searchUsers, followUser, unfollowUser } from "./users";

@@ -21,7 +21,11 @@ const Search = ({ searchUsers, searchResults }) => {
       {searchResults ? (
         searchResults.length > 0 ? (
           searchResults.map((result) => (
-            <UserIntroCard key={result.id} user={result} />
+            <UserIntroCard
+              key={result.id}
+              user={result}
+              followed={result.followed}
+            />
           ))
         ) : (
           <div>No results found</div>

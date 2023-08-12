@@ -2,14 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import InitialProfileImage from "../../UI/InitalProfileImage/InitialProfileImage";
 import Button from "../../UI/Button/Button";
-import { followUser } from "../../../store/actions/";
+import { followUser, unfollowUser } from "../../../store/actions/";
 
 import classes from "./UserIntroCard.module.scss";
 
-const UserIntroCard = ({ user, followUser }) => {
+const UserIntroCard = ({ user, followUser, unfollowUser, followed }) => {
   const handleFollowClick = (e) => {
     e.preventDefault();
-    followUser({followingUserId: user.id})
+    followUser({ followingUserId: user.id });
+  };
+
+  const handleUnfollowClick = (e, userIdToUnfollow) => {
+    e.preventDefault();
+    unfollowUser(userIdToUnfollow);
   };
 
   return (
@@ -30,12 +35,21 @@ const UserIntroCard = ({ user, followUser }) => {
         {user.firstName} {user.lastName}
       </div>
       <div className={classes.followButton}>
-        <Button clicked={handleFollowClick} color={"green"}>
-          Follow
-        </Button>
+        {followed ? (
+          <Button
+            clicked={(e) => handleUnfollowClick(e, user.id)}
+            color={"green"}
+          >
+            Unfollow
+          </Button>
+        ) : (
+          <Button clicked={handleFollowClick} color={"green"}>
+            Follow
+          </Button>
+        )}
       </div>
     </div>
   );
 };
 
-export default connect(null, { followUser })(UserIntroCard);
+export default connect(null, { followUser, unfollowUser })(UserIntroCard);
